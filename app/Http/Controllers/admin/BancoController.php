@@ -33,7 +33,7 @@ class BancoController extends Controller
     }
 
     /**
-     * Mostra o formulário de criação de um novo banco.
+     * Mostra o formulário de criação de um assets banco.
      *
      * @return \Illuminate\View\View
      */
@@ -41,12 +41,12 @@ class BancoController extends Controller
     {
 
         $paises = \App\Models\Pais::all();
-        // Retorna a view para criar um novo banco
+        // Retorna a view para criar um assets banco
         return view('admin.banco.create', compact('paises'));
     }
 
     /**
-     * Armazena um novo banco no banco de dados.
+     * Armazena um assets banco no banco de dados.
      *
      * @param  \App\Http\Requests\StoreBancoRequest  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -64,7 +64,7 @@ class BancoController extends Controller
         // Remove os campos antigos que não são necessários no banco de dados
         unset($bancoData['pais'], $bancoData['provincia'], $bancoData['municipio']);
 
-        // Cria o novo banco no banco de dados
+        // Cria o assets banco no banco de dados
         Banco::create($bancoData);
 
         // Redireciona para a lista de bancos com uma mensagem de sucesso

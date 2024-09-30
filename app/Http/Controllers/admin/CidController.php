@@ -41,7 +41,7 @@ class CidController extends Controller
     }
 
     /**
-     * Mostra o formulário de criação de um novo CID.
+     * Mostra o formulário de criação de um assets CID.
      *
      * @return \Illuminate\View\View
      */
@@ -56,12 +56,12 @@ class CidController extends Controller
             return $cobertura;
         });
 
-        // Retorna a view para criar um novo CID
+        // Retorna a view para criar um assets CID
         return view('admin.cid.create', compact('coberturas'));
     }
 
     /**
-     * Armazena um novo CID no banco de dados.
+     * Armazena um assets CID no banco de dados.
      *
      * @param  \App\Http\Requests\StoreCidRequest  $request
      * @return \Illuminate\Http\RedirectResponse

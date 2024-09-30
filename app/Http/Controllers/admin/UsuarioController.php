@@ -32,18 +32,18 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Mostra o formulário de criação de um novo usuário.
+     * Mostra o formulário de criação de um assets usuário.
      *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        // Retorna a view 'form' para criar um novo usuário
+        // Retorna a view 'form' para criar um assets usuário
         return view('admin.usuario.create');
     }
 
     /**
-     * Armazena um novo usuário no banco de dados.
+     * Armazena um assets usuário no banco de dados.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -54,7 +54,7 @@ class UsuarioController extends Controller
         $usuarioData = $request->all();
         $usuarioData['senha'] = bcrypt('saude@123');
 
-        // Cria o novo usuário no banco de dados
+        // Cria o assets usuário no banco de dados
         $usuario = Usuario::create($usuarioData);
 
         // Decodifica o JSON contendo os contatos

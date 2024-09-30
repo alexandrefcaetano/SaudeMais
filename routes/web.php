@@ -87,7 +87,7 @@ Route::get('/cid/{hash}', [CidController::class, 'show'])->name('cid.show')->whe
 Route::get('/cid/edit/{hash}', [CidController::class, 'edit'])->name('cid.edit')->where('cid', '[0-9]+');
 // Lista de CIDs e Pesquisa (aceitando GET e POST para pesquisa)
 Route::match(['get', 'post'], '/cid', [CidController::class, 'index'])->name('cid.index');
-// Criar novo CID via POST
+// Criar assets CID via POST
 Route::post('/cid/store', [CidController::class, 'store'])->name('cid.store');
 
 

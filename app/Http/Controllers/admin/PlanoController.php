@@ -41,18 +41,18 @@ class PlanoController extends Controller
     }
 
     /**
-     * Mostra o formulário de criação de um novo plano.
+     * Mostra o formulário de criação de um assets plano.
      *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        // Retorna a view para criar um novo plano
+        // Retorna a view para criar um assets plano
         return view('admin.plano.create');
     }
 
     /**
-     * Armazena um novo plano no banco de dados.
+     * Armazena um assets plano no banco de dados.
      *
      * @param  \App\Http\Requests\StorePlanoRequest  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -62,7 +62,7 @@ class PlanoController extends Controller
         // Prepara os dados do plano
         $planoData = $request->all();
 
-        // Cria o novo plano no banco de dados
+        // Cria o assets plano no banco de dados
         Plano::create($planoData);
 
         // Redireciona para a lista de planos com uma mensagem de sucesso
