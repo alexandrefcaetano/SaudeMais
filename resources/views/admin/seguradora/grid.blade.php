@@ -56,7 +56,7 @@
                 <!--begin: Search Form -->
                 <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
-                        <form action="{{ route('seguradora.pesquisa') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
+                        <form action="{{ route('seguradora.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
                             @csrf()
                             <div class="col-xl-8 order-2 order-xl-1">
                                 <div class="row align-items-center">
@@ -142,7 +142,7 @@
                                             </div>
                                         </th>
                                         <td>{{ $seguradora->seguradora }}</td>
-                                        <td>{{ $seguradora->ativo === 'S' ? 'Sim' : 'Não' }}</td>
+                                        <td>{!! $seguradora->getStatusBadge() !!}</td>
                                         <td>{{ $seguradora->nif }}</td>
                                         <td>{{ $seguradora->exibirsite === 'S' ? 'Sim' : 'Não'  }}</td>
                                         <td>{{ $seguradora->exibirdanoscorporais === 'S' ? 'Sim' : 'Não'  }}</td>

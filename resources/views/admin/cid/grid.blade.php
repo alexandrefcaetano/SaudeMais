@@ -81,7 +81,7 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <button type="submit" class="btn btn-success">Pesquisa</button>
-                                                    <a href="{{ route('plano.index') }}" class="btn btn-warning">Limpar</a>
+                                                    <a href="{{ route('cid.index') }}" class="btn btn-warning">Limpar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,11 +141,11 @@
                                                 <a href="{{ route('cid.edit', encrypitar($cid->id_cid)) }}" data-skin="dark" data-toggle="kt-tooltip" class="btn btn-outline-warning btn-sm btn-icon btn-icon-md" data-original-title="Editar">
                                                     <i class="la la-pencil"></i>
                                                 </a>
-
+                                            </div>
                                         </th>
                                         <td>{{ $cid->codigo_cid }}</td>
                                         <td>{{ $cid->cid }}</td>
-                                        <td>{{ $cid->ativo === 'S' ? 'SIM' : 'NÂO' }}</td>
+                                        <td>{!! $cid->getStatusBadge() !!}</td>
                                         <td>{{ $cid->tiporegra }}</td>
                                         <td>{{ $cid->created_at->format('d/m/Y H:i:s') }}</td>
                                     </tr>

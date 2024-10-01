@@ -56,63 +56,41 @@
                 <!--begin: Search Form -->
                 <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
-
-                        <div class="col-xl-8 order-2 order-xl-1">
-                            <div class="row align-items-center">
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                    <div class="kt-input-icon kt-input-icon--left">
-                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                                            <span><i class="la la-search"></i></span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                    <div class="kt-form__group kt-form__group--inline">
-                                        <div class="kt-form__label">
-                                            <label>Especialidade:</label>
+                        <form action="{{ route('banco.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
+                            @csrf()
+                            <div class="col-xl-12">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="status">Pesquisar:</label>
+                                            <input type="text" name="cid" value="{{ old('banco', request('banco')) }}" class="form-control" placeholder="Search... Nome CID" id="generalSearch">
                                         </div>
-                                        <div class="kt-form__control">
-                                            <div class="dropdown bootstrap-select form-control">
-                                            <select class="form-control bootstrap-select" id="kt_form_status" tabindex="-98">
-                                                <option value="">Selecione</option>
-                                                <option value="1">Atico</option>
-                                                <option value="2">Inativo</option>
-                                                <option value="3">Bloqueado</option>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="status">Ativo:</label>
+                                            <select class="form-control" id="ativo" name="ativo" required>
+                                                <option  value="">Selecione...</option>
+                                                <option value="S"  {{ old('ativo', request('ativo')) == 'S' ? 'selected' : '' }}>Sim</option>
+                                                <option value="N"  {{ old('ativo', request('ativo')) == 'N' ? 'selected' : '' }}>Não</option>
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                    <div class="kt-form__group kt-form__group--inline">
-                                        <div class="kt-form__label">
-                                            <label>Tipo:</label>
-                                        </div>
-                                        <div class="kt-form__control">
-                                            <div class="dropdown bootstrap-select form-control">
-                                            <select class="form-control bootstrap-select" id="kt_form_status" tabindex="-98">
-                                                <option value="">Selecione</option>
-                                                <option value="M">Especialista</option>
-                                                <option value="T">Triagem</option>
-                                            </select>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn btn-success">Pesquisa</button>
+                                                    <a href="{{ route('banco.index') }}" class="btn btn-warning">Limpar</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
-                        </div>
-                        <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
-                            <a href="#" class="btn btn-default kt-hidden">
-                                <i class="la la-cart-plus"></i> New Order
-                            </a>
-                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-
                 <!--end: Search Form -->
             </div>
             <div class="kt-portlet__body kt-portlet__body--fit">
@@ -121,6 +99,23 @@
                     <div class="kt-section">
                         <div class="kt-section__content">
                             <div class="table-responsive">
+                                <div class="col-lg-6">
+                                    <div class="kt-datatable__pager-info">
+                                        <div class="dropdown bootstrap-select kt-datatable__pager-size" >
+                                            <form method="GET" action="{{ route('banco.index') }}">
+                                                <label for="registrosPorPagina">Registros por página:</label>
+                                                <select name="registrosPorPagina" id="registrosPorPagina" data-width="60px" class="selectpicker kt-datatable__pager-size" onchange="this.form.submit()">
+                                                    <option value="10" {{ $registrosPorPagina == 10 ? 'selected' : '' }}>10</option>
+                                                    <option value="15" {{ $registrosPorPagina == 15 ? 'selected' : '' }}>15</option>
+                                                    <option value="20" {{ $registrosPorPagina == 20 ? 'selected' : '' }}>20</option>
+                                                    <option value="50" {{ $registrosPorPagina == 50 ? 'selected' : '' }}>50</option>
+                                                    <option value="100" {{ $registrosPorPagina == 100 ? 'selected' : '' }}>100</option>
+                                                </select>
+                                            </form>
+                                        </div>
+                                        <span class="kt-datatable__pager-detail" style="margin-left: -35px"> de {{ $bancos->total() }} registros.</span>
+                                    </div>
+                                </div>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
@@ -138,10 +133,10 @@
                                     <tr>
                                         <th scope="row">
                                             <div class="kt-portlet__head-actions">
-                                                <a href="{{ route('banco.show', $banco->id_banco) }}" data-skin="dark" data-toggle="kt-tooltip" class="btn btn-outline-success btn-sm btn-icon btn-icon-md" data-original-title="Visualizar">
+                                                <a href="{{ route('banco.show', encrypitar($banco->id_banco)) }}" data-skin="dark" data-toggle="kt-tooltip" class="btn btn-outline-success btn-sm btn-icon btn-icon-md" data-original-title="Visualizar">
                                                     <i class="flaticon2-search-1"></i>
                                                 </a>
-                                                <a href="{{ route('banco.edit', $banco->id_banco) }}" data-skin="dark" data-toggle="kt-tooltip" class="btn btn-outline-warning btn-sm btn-icon btn-icon-md" data-original-title="Editar">
+                                                <a href="{{ route('banco.edit', encrypitar($banco->id_banco)) }}" data-skin="dark" data-toggle="kt-tooltip" class="btn btn-outline-warning btn-sm btn-icon btn-icon-md" data-original-title="Editar">
                                                     <i class="la la-pencil"></i>
                                                 </a>
                                             </div>

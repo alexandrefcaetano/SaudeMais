@@ -9,14 +9,6 @@
 
     <!--begin::Fonts -->
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js')}}"></script>
-    <script>
-        WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
 
     <!--end::Fonts -->
 
@@ -70,7 +62,7 @@
     <link href="{{ asset('assets/demo/default/skins/brand/dark.css?v=1.2')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/aside/dark.css?v=1.5')}}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.11')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.12')}}" rel="stylesheet" type="text/css" />
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
 </head>
@@ -86,7 +78,7 @@
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="index.html">
-            <img alt="Logo" src="{{ asset('assets/media/logos/logo_saude_sf.png')}}" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/logo_saude_mais.png')}}" />
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -312,7 +304,7 @@
                             <div class="kt-header__topbar-user">
                                 <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
                                 <span class="kt-header__topbar-username kt-hidden-mobile">Sean</span>
-                                <img class="kt-hidden" alt="Pic" src="{{ asset('assets/media/users/300_25.jpg')}}" />
+                                <img class="kt-hidden" alt="Pic" src="" />
 
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">S</span>
@@ -323,7 +315,7 @@
                             <!--begin: Head -->
                             <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{ asset('assets/media/misc/bg-1.jpg')}}">
                                 <div class="kt-user-card__avatar">
-                                    <img class="kt-hidden" alt="Pic" src="{{ asset('assets/media/users/300_25.jpg')}}" />
+                                    <img class="kt-hidden" alt="Pic" src="" />
 
                                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                     <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
@@ -843,175 +835,7 @@
 
 
 
-<div id="kt_demo_panel" class="kt-demo-panel">
-    <div class="kt-demo-panel__head">
-        <h3 class="kt-demo-panel__title">
-            Select A Demo
 
-            <!--<small>5</small>-->
-        </h3>
-        <a href="#" class="kt-demo-panel__close" id="kt_demo_panel_close"><i class="flaticon2-delete"></i></a>
-    </div>
-    <div class="kt-demo-panel__body">
-        <div class="kt-demo-panel__item kt-demo-panel__item--active">
-            <div class="kt-demo-panel__item-title">
-                Default
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-_Default.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 2
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-2.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 3
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-3.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 4
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-4.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 5
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-5.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 6
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-6.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 7
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-7.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 8
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-8.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 9
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-9.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 10
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-10.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 11
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-11.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 12
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-12.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 13
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-13.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate disabled">Coming soon</a>
-                </div>
-            </div>
-        </div>
-        <div class="kt-demo-panel__item ">
-            <div class="kt-demo-panel__item-title">
-                Demo 14
-            </div>
-            <div class="kt-demo-panel__item-preview">
-                <img src="{{ asset('assets/media/demos/Demo-14.jpg')}}" alt="" />
-                <div class="kt-demo-panel__item-preview-overlay">
-                    <a href="#" class="btn btn-brand btn-elevate disabled">Coming soon</a>
-                </div>
-            </div>
-        </div>
-        <a href="" target="_blank" class="kt-demo-panel__purchase btn btn-brand btn-elevate btn-bold btn-upper">
-            Buy Metronic Now!
-        </a>
-    </div>
-</div>
 
 <!-- end::Demo Panel -->
 

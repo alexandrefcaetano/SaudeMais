@@ -17,7 +17,12 @@ class BancoController extends Controller
      */
     public function index(Request $request)
     {
-        $bancos = DB::table('tb_banco')
+        // Recebe os filtros da requisição
+        $banco = $request->input('banco');
+        $ativo = $request->input('ativo');
+
+        // Inicia a query base para o modelo Banco com os joins necessários
+        $bancos = Banco::query()
             ->leftJoin('tb_pais', 'tb_banco.pais_id', '=', 'tb_pais.id_pais')
             ->leftJoin('tb_provincia', 'tb_banco.provincia_id', '=', 'tb_provincia.id_provincia')
             ->leftJoin('tb_municipio', 'tb_banco.municipio_id', '=', 'tb_municipio.id_municipio')
@@ -26,10 +31,25 @@ class BancoController extends Controller
                 'tb_pais.pais as pais', // Nome do país
                 'tb_provincia.provincia as provincia', // Nome da província
                 'tb_municipio.municipio as municipio' // Nome do município
-            )
-            ->paginate(15); // Paginação de 15 itens por página
+            );
 
-        return view('admin.banco.grid', compact('bancos'));
+        // Aplica os filtros se os valores não forem vazios
+        if (!empty($banco)) {
+            $bancos->where('tb_banco.banco', 'like', '%' . $banco . '%');
+        }
+        if (!empty($ativo)) {
+            $bancos->where('tb_banco.ativo', $ativo);
+        }
+
+        // Define a quantidade de registros por página (padrão: 15)
+        $registrosPorPagina = $request->input('registrosPorPagina', 15);
+
+        // Aplica a ordenação e paginação
+        $bancos = $bancos->orderBy('tb_banco.id_banco', 'desc')
+            ->paginate($registrosPorPagina);
+
+        // Retorna a view com os dados paginados
+        return view('admin.banco.grid', compact('bancos', 'registrosPorPagina'));
     }
 
     /**

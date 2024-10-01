@@ -24,8 +24,8 @@ Route::put('/empresa/{hash}', [EmpresaController::class, 'update'])->name('empre
 Route::get('/empresa/{hash}', [EmpresaController::class, 'show'])->name('empresa.show');
 Route::get('/empresa/edit/{hash}', [EmpresaController::class, 'edit'])->name('empresa.edit');
 Route::match(['get', 'post'],'/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
-Route::post('/empresa', [EmpresaController::class, 'store'])->name('empresa.store');
-Route::post('/empresa/pesquisa', [EmpresaController::class, 'index'])->name('empresa.pesquisa');
+Route::post('/empresa/store', [EmpresaController::class, 'store'])->name('empresa.store');
+
 
 
 // Rotas para o gerenciamento de seguradoras
@@ -34,10 +34,17 @@ Route::match(['get', 'post'], '/seguradora/create', [SeguradoraController::class
 Route::put('/seguradora/{hash}', [SeguradoraController::class, 'update'])->name('seguradora.update');
 Route::get('/seguradora/{hash}', [SeguradoraController::class, 'show'])->name('seguradora.show');
 Route::get('/seguradora/edit/{hash}', [SeguradoraController::class, 'edit'])->name('seguradora.edit');
-Route::get('/seguradora', [SeguradoraController::class, 'index'])->name('seguradora.index');
-Route::post('/seguradora', [SeguradoraController::class, 'store'])->name('seguradora.store');
-Route::post('/seguradora/pesquisa', [SeguradoraController::class, 'index'])->name('seguradora.pesquisa');
+Route::match(['get', 'post'], '/seguradora', [SeguradoraController::class, 'index'])->name('seguradora.index');
+Route::post('/seguradora/store', [SeguradoraController::class, 'store'])->name('seguradora.store');
 
+
+use App\Http\Controllers\admin\CidController;
+Route::match(['get', 'post'], '/cid/create', [CidController::class, 'create'])->name('cid.create');
+Route::put('/cid/{hash}', [CidController::class, 'update'])->name('cid.update')->where('cid', '[0-9]+');
+Route::get('/cid/{hash}', [CidController::class, 'show'])->name('cid.show')->where('cid', '[0-9]+');
+Route::get('/cid/edit/{hash}', [CidController::class, 'edit'])->name('cid.edit')->where('cid', '[0-9]+');
+Route::match(['get', 'post'], '/cid', [CidController::class, 'index'])->name('cid.index');
+Route::post('/cid/store', [CidController::class, 'store'])->name('cid.store');
 
 
 
@@ -47,20 +54,31 @@ Route::match(['get', 'post'], '/especialidade/create', [EspecialidadeController:
 Route::put('/especialidade/{hash}', [EspecialidadeController::class, 'update'])->name('especialidade.update')->where('especialidade', '[0-9]+');
 Route::get('/especialidade/{hash}', [EspecialidadeController::class, 'show'])->name('especialidade.show')->where('especialidade', '[0-9]+');
 Route::get('/especialidade/edit/{hash}', [EspecialidadeController::class, 'edit'])->name('especialidade.edit')->where('especialidade', '[0-9]+');
-Route::get('/especialidade', [EspecialidadeController::class, 'index'])->name('especialidade.index');
-Route::post('/especialidade', [EspecialidadeController::class, 'store'])->name('especialidade.store');
-Route::post('/especialidade/pesquisa', [EspecialidadeController::class, 'index'])->name('especialidade.pesquisa');
+Route::match(['get', 'post'], '/especialidade', [EspecialidadeController::class, 'index'])->name('especialidade.index');
+Route::post('/especialidade/store', [EspecialidadeController::class, 'store'])->name('especialidade.store');
 
 
-// Rotas para o gerenciamento de planos
+// Rotas para o gerenciamento de procedimento
 use App\Http\Controllers\admin\PlanoController;
 Route::match(['get', 'post'], '/plano/create', [PlanoController::class, 'create'])->name('plano.create');
 Route::put('/plano/{hash}', [PlanoController::class, 'update'])->name('plano.update')->where('plano', '[0-9]+');
 Route::get('/plano/{hash}', [PlanoController::class, 'show'])->name('plano.show')->where('plano', '[0-9]+');
 Route::get('/plano/edit/{hash}', [PlanoController::class, 'edit'])->name('plano.edit')->where('plano', '[0-9]+');
-Route::get('/plano', [PlanoController::class, 'index'])->name('plano.index');
-Route::post('/plano', [PlanoController::class, 'store'])->name('plano.store');
-Route::post('/plano/pesquisa', [PlanoController::class, 'index'])->name('plano.pesquisa');
+Route::match(['get', 'post'],'/plano', [PlanoController::class, 'index'])->name('plano.index');
+Route::post('/plano/store', [PlanoController::class, 'store'])->name('plano.store');
+
+
+
+// Rotas para o gerenciamento de planos
+use App\Http\Controllers\admin\ProcedimentoController;
+Route::match(['get', 'post'], '/procedimento/create', [PlanoController::class, 'create'])->name('procedimento.create');
+Route::put('/procedimento/{hash}', [PlanoController::class, 'update'])->name('procedimento.update')->where('procedimento', '[0-9]+');
+Route::get('/procedimento/{hash}', [PlanoController::class, 'show'])->name('procedimento.show')->where('procedimento', '[0-9]+');
+Route::get('/procedimento/edit/{hash}', [PlanoController::class, 'edit'])->name('procedimento.edit')->where('procedimento', '[0-9]+');
+Route::match(['get', 'post'],'/plano', [PlanoController::class, 'index'])->name('procedimento.index');
+Route::post('/procedimento/store', [PlanoController::class, 'store'])->name('procedimento.store');
+
+
 
 
 
@@ -76,19 +94,6 @@ Route::post('/medico/pesquisa', [MedicoController::class, 'index'])->name('medic
 
 
 
-use App\Http\Controllers\admin\CidController;
-// Criação de CID
-Route::match(['get', 'post'], '/cid/create', [CidController::class, 'create'])->name('cid.create');
-// Atualização de CID
-Route::put('/cid/{hash}', [CidController::class, 'update'])->name('cid.update')->where('cid', '[0-9]+');
-// Exibição de um CID específico
-Route::get('/cid/{hash}', [CidController::class, 'show'])->name('cid.show')->where('cid', '[0-9]+');
-// Edição de CID
-Route::get('/cid/edit/{hash}', [CidController::class, 'edit'])->name('cid.edit')->where('cid', '[0-9]+');
-// Lista de CIDs e Pesquisa (aceitando GET e POST para pesquisa)
-Route::match(['get', 'post'], '/cid', [CidController::class, 'index'])->name('cid.index');
-// Criar assets CID via POST
-Route::post('/cid/store', [CidController::class, 'store'])->name('cid.store');
 
 
 
@@ -116,18 +121,14 @@ Route::get('/apolice/relatorio', [ApoliceController::class, 'relatorio'])->name(
 
 
 
-
-
-
 // Rotas para o gerenciamento de Banco
 use App\Http\Controllers\admin\BancoController;
+Route::match(['get', 'post'], '/banco/create', [BancoController::class, 'create'])->name('banco.create');
 Route::put('/banco/{banco}', [BancoController::class, 'update'])->name('banco.update')->where('banco', '[0-9]+');
 Route::get('/banco/{banco}', [BancoController::class, 'show'])->name('banco.show')->where('banco', '[0-9]+');
 Route::get('/banco/{banco}/edit', [BancoController::class, 'edit'])->name('banco.edit')->where('banco', '[0-9]+');
-Route::get('/banco', [BancoController::class, 'index'])->name('banco.index');
-Route::post('/banco', [BancoController::class, 'store'])->name('banco.store');
-Route::match(['get', 'post'], '/banco/create', [BancoController::class, 'create'])->name('banco.create');
-
+Route::match(['get', 'post'],'/banco', [BancoController::class, 'index'])->name('banco.index');
+Route::post('/banco/store', [BancoController::class, 'store'])->name('banco.store');
 
 
 

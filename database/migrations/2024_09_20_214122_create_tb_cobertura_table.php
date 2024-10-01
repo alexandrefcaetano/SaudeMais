@@ -16,7 +16,7 @@ class CreateTbCoberturaTable extends Migration
         Schema::create('tb_cobertura', function (Blueprint $table) {
             $table->id('id_cobertura'); // Chave primária
             $table->string('cobertura', 100)->nullable();
-            $table->string('status', 1)->nullable();
+            $table->string('ativo', 1)->nullable();
             $table->string('alertaSMS', 1)->default('N')->nullable();
             $table->timestamps();
         });

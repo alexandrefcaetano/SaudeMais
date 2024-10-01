@@ -56,7 +56,7 @@
                  <!--begin: Search Form -->
                  <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
-                        <form action="{{ route('plano.pesquisa') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
+                        <form action="{{ route('plano.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
                             @csrf()
                             <div class="col-xl-12">
                                 <div class="row align-items-center">
@@ -146,7 +146,7 @@
                                         </th>
                                         <td>{{ $plano->plano }}</td>
                                         <td>{{ $plano->valor }}</td>
-                                        <td>{{ $plano->ativo === 'S' ? 'SIM' : 'NÂO' }}</td>
+                                        <td>{!! $plano->getStatusBadge() !!}</td>
                                         <td>{{ $plano->validade }}</td>
                                         <td>{{ $plano->created_at->format('d/m/Y H:i:s') }}</td>
                                     </tr>

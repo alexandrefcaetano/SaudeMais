@@ -46,7 +46,7 @@
                 <!--begin: Search Form -->
                 <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
-                        <form action="{{ route('empresa.pesquisa') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
+                        <form action="{{ route('empresa.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
                             @csrf()
                             <div class="col-xl-8 order-2 order-xl-1">
                                 <div class="row align-items-center">
@@ -95,7 +95,7 @@
                             </div>
                         </form>
 
-                      
+
                     </div>
                 </div>
                 <!--end: Search Form -->
@@ -156,7 +156,7 @@
 
                                         </th>
                                         <td>{{ $empresa->nomefantasia }}</td>
-                                        <td>{{ $empresa->ativo === 'S' ? 'Ativo' : 'Inativo' }}</td>
+                                        <td>{!! $empresa->getStatusBadge() !!}</td>
                                         <td>{{ $empresa->nif }}</td>
                                         <td>{{ $empresa->razaosocial }}</td>
                                         <td>{{ $empresa->ramoatividade }}</td>
