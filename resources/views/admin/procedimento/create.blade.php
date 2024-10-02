@@ -8,7 +8,7 @@
     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
         <div class="kt-subheader__main">
             <h3 class="kt-subheader__title">
-                Form Usuário </h3>
+                Form Procedimento </h3>
             <span class="kt-subheader__separator kt-hidden"></span>
             <div class="kt-subheader__breadcrumbs">
                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
@@ -34,7 +34,7 @@
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                               Cadastra Usuário
+                               Cadastra Procedimento
                             </h3>
                         </div>
                     </div>
@@ -47,58 +47,49 @@
                     @endif
 
                     <!--begin::Form-->
-                    <form action="{{ route('empresa.store') }}" class="kt-form kt-form--label-right form-empresa"  method="POST" novalidate="novalidate">
+                    <form action="{{ route('procedimento.store') }}" class="kt-form kt-form--label-right form-empresa"  method="POST" novalidate="novalidate">
                         @csrf()
                         <div class="kt-portlet__body">
                             <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label>Razão Social:</label>
-                                    <input type="text" class="form-control" name="razaosocial" minlength="2" maxlength="150" required value="{{ old('razaosocial') }}" placeholder="Razão Social">
-                                    <span class="form-text text-muted">Entre com o nome Razão Social...</span>
+                                    <label>Codigo Procedimento:</label>
+                                    <input type="text" class="form-control" name="razaosocial" minlength="2" maxlength="150" required value="{{ old('razaosocial') }}" placeholder="Codigo Procedimento">
+                                    <span class="form-text text-muted">Codigo procedimento gerado automatico..</span>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label>Nome Fantasia:</label>
-                                    <input type="text" class="form-control" name="nomefantasia" minlength="2" maxlength="150" required value="{{ old('nomefantasia') }}" placeholder="Nome Fantasia">
-                                    <span class="form-text text-muted">Entre com o nome Nome Fantasia...</span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-6">
-                                    <label>NIF:</label>
-                                    <input type="text" class="form-control" name="nif" minlength="2" maxlength="50" required value="{{ old('nif') }}" placeholder="NIF">
-                                    <span class="form-text text-muted">Entre com o NIF...</span>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Ramo de Atividade:</label>
-                                    <input type="text" class="form-control" name="ramoatividade" minlength="2" maxlength="150" required value="{{ old('ramoatividade') }}" placeholder="Ramo Atividade">
-                                    <span class="form-text text-muted">Entre com o Ramo de Atividade...</span>
+                                    <label for="exampleTextarea">Descrição:</label>
+                                    <textarea class="form-control" id="descricao" name="Descrição" rows="3">{{ old('Descrição') }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="status">Ativo:</label>
-                                        <select class="form-control" id="ativo" name="ativo" required>
+                                        <label for="status">Tipo Regra:</label>
+                                        <select class="form-control" id="tiporegra" name="tiporegra" required>
                                             <option  value="">Selecione...</option>
-                                            <option value="S"  {{ old('ativo') == 'S' ? 'selected' : '' }}>Sim</option>
-                                            <option value="N"  {{ old('ativo') == 'N' ? 'selected' : '' }}>Não</option>
+                                            <option value="pré-autorização"  {{ old('pré-autorização') == 'S' ? 'selected' : '' }}>PRÉ-AUTORIZAÇÃO</option>
+                                            <option value="autorização"  {{ old('autorização') == 'N' ? 'selected' : '' }}>AUTORIZAÇÃO</option>
+                                            <option value="exclusão"  {{ old('exclusão') == 'N' ? 'selected' : '' }}>EXCLUSÃO</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="status">Visualizar Relatorio de Atendimento:</label>
-                                        <select class="form-control" id="visualizarrelatendimento" name="visualizarrelatendimento" required>
-                                            <option selected value="AT">Ativo</option>
-                                            <option value="S"  {{ old('visualizarrelatendimento') == 'S' ? 'selected' : '' }}>Sim</option>
-                                            <option value="N"  {{ old('visualizarrelatendimento') == 'N' ? 'selected' : '' }}>Não</option>
+                                        <label for="status">Tipo Atendimento:</label>
+                                        <select class="form-control"  id="tipoatendimento" name="tipoatendimento" required>
+                                            <option value="">Selecione</option>
+                                            @forelse ($seguradoras as $seguradora)
+                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @empty
+                                                <option value="">Nem um Registro Encontrado</option>
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="status">Seguradora:</label>
-                                        <select class="form-control"  id="seguradora_id" name="seguradora_id" required>
+                                        <label for="status">Prestador:</label>
+                                        <select class="form-control"  id="prestador" name="prestador" required>
                                             <option value="">Selecione</option>
                                             @forelse ($seguradoras as $seguradora)
                                                 <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
@@ -112,20 +103,81 @@
 
                             <div class="form-group row">
                                 <div class="col-lg-4">
-                                    <label>Morada:</label>
-                                    <input type="text" class="form-control" name="morada" minlength="2" maxlength="200" required value="{{ old('morada') }}" placeholder="Morada">
-                                    <span class="form-text text-muted">Entre com a Morada...</span>
+                                    <div class="form-group">
+                                        <label for="status">Cobertura:</label>
+                                        <select class="form-control"  id="cobertura" name="cobertura" required>
+                                            <option value="">Selecione</option>
+                                            @forelse ($seguradoras as $seguradora)
+                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @empty
+                                                <option value="">Nem um Registro Encontrado</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>Corretor:</label>
-                                    <input type="text" class="form-control" name="corretor" minlength="2" maxlength="50" required value="{{ old('corretor') }}" placeholder="Ramo Atividade">
-                                    <span class="form-text text-muted">Entre com o Corretor...</span>
+                                    <div class="form-group">
+                                        <label for="status">Sub-Cobertura:</label>
+                                        <select class="form-control"  id="seguradora_id" name="seguradora_id" required>
+                                            <option value="">Selecione</option>
+                                            @forelse ($seguradoras as $seguradora)
+                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @empty
+                                                <option value="">Nem um Registro Encontrado</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="status">Tipo de Procedimento:</label>
+                                        <select class="form-control"  id="seguradora_id" name="seguradora_id" required>
+                                            <option value="">Selecione</option>
+                                            @forelse ($seguradoras as $seguradora)
+                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @empty
+                                                <option value="">Nem um Registro Encontrado</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group form-group-last">
-                                <label for="exampleTextarea">Observação:</label>
-                                <textarea class="form-control" id="observacao" name="observacao" rows="3">{{ old('observacao') }}</textarea>
+
+
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>Quantidade de Dias:</label>
+                                    <input type="text" class="form-control" name="quantidadedias" minlength="2" maxlength="20" required value="{{ old('quantidadedias') }}" placeholder="Quantidade de Dias">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Quantidade de Itens:</label>
+                                    <input type="text" class="form-control" name="quantidadeItens" minlength="2" maxlength="50" required value="{{ old('quantidadeitens') }}" placeholder="Quantidade de Itens">
+                                </div>
+                                <label class="col-2 col-form-label">Ativo</label>
+                                <div class="col-1">
+                                    <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                        <label>
+                                            <input type="checkbox" {{ old('ativo')  ? 'checked' : '' }} name="ativo">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </div>
+                                <label class="col-2 col-form-label">Gratutito</label>
+                                <div class="col-1">
+                                    <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+                                        <label>
+                                            <input type="checkbox" {{ old('gratuito') ? 'checked' : '' }}  name="gratuito">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </div>
                             </div>
+
+
+
+
+
+
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
@@ -134,33 +186,41 @@
                                     <h3>Contatos</h3>
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                 <div class="col-md-6">
-                                    <a href="javascript:abrirModalItem()" class="btn btn-info"><i class="fa fa-plus-square-o"></i> Incluir Contato</a>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="status">Informar o Valor em:</label>
+                                        <select class="form-control" id="informaValor" name="informaValor" required>
+                                            <option  value="">Selecione...</option>
+                                            <option value="D"  {{ old('ativo') == 'S' ? 'selected' : '' }}>Sim</option>
+                                            <option value="N"  {{ old('ativo') == 'N' ? 'selected' : '' }}>Não</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <table data-toggle="table" class="table table-bordered table-hover table-contato" data-unique-id="id">
-                                        <thead class="thead-light">
-                                        <tr>
-                                            <th data-field="tipo" data-align="center">Tipo</th>
-                                            <th data-field="descricao">Contato</th>
-                                            <th data-field="flg_principal" data-align="center" data-formatter="formatPrincipal">Principal</th>
-                                            <th data-formatter="formatAcao" data-align="center">Ações</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <input type="hidden" name="contato" class="contato" value=""/>
-                                    </table>
+                                <div class="col-lg-4">
+                                    <label>Valor Faturado:</label>
+                                    <input type="text" class="form-control" name="vlrfaturado" minlength="2" maxlength="200" required value="{{ old('vlrFaturado') }}" placeholder="Morada">
+                                    <span class="form-text text-muted">Entre com a Morada...</span>
                                 </div>
+                                <div class="col-lg-4">
+                                    <label>Valor Saude +:</label>
+                                    <input type="text" class="form-control" name="vlrdaudemais" minlength="2" maxlength="50" required value="{{ old('vlrSaudeMais') }}" placeholder="Ramo Atividade">
+                                    <span class="form-text text-muted">Entre com o Corretor...</span>
+                                </div>
+
                             </div>
+
+
+
+
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <button type="submit" class="btn btn-success">Salvar</button>
-                                        <a href="{{ route('empresa.index') }}"  class="btn btn-outline-danger">Voltar</a>
+                                        <a href="{{ route('procedimento.index') }}"  class="btn btn-outline-danger">Voltar</a>
                                     </div>
                                 </div>
                             </div>

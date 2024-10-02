@@ -37,7 +37,7 @@
                     <div class="kt-portlet__head-wrapper">
                         <a href="{{ route('procedimento.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
-                            Nova Empresa
+                            Cadastro Procedimento
                         </a>
                     </div>
                 </div>
@@ -71,13 +71,13 @@
                                             <label for="status">Seguradora:</label>
                                             <select class="form-control m-select2 pesquisar_select" id="pesquisar_select" name="seguradora">
                                                 <option value="">Selecione</option>
-                                                @forelse ($seguradoras as $seguradora)
-                                                    <option value="{{ $seguradora->encrypted_id }}" {{ old('seguradora_id', request('seguradora_id')) == $seguradora->id_seguradora ? 'selected' : '' }}>
-                                                        {{ $seguradora->seguradora }}
-                                                    </option>
-                                                @empty
-                                                    <option value="">Nenhum Registro Encontrado</option>
-                                                @endforelse
+{{--                                                @forelse ($seguradoras as $seguradora)--}}
+{{--                                                    <option value="{{ $seguradora->encrypted_id }}" {{ old('seguradora_id', request('seguradora_id')) == $seguradora->id_seguradora ? 'selected' : '' }}>--}}
+{{--                                                        {{ $seguradora->seguradora }}--}}
+{{--                                                    </option>--}}
+{{--                                                @empty--}}
+{{--                                                    <option value="">Nenhum Registro Encontrado</option>--}}
+{{--                                                @endforelse--}}
                                             </select>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                  <div class="kkt-datatable__pager kt-datatable--paging-loaded">
                     <div class="form-group row">
                         <div class="col-lg-6">
-                                 {{ procedimentos->links() }}
+                                 {{ $procedimentos->links() }}
                         </div>
 
                     </div>

@@ -131,29 +131,5 @@ class PlanoController extends Controller
         return redirect()->route('plano.index')->with('success', 'Plano atualizado com sucesso.');
     }
 
-    /**
-     * Remove um plano do banco de dados.
-     *
-     * @param  \App\Models\Plano  $plano
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Plano $plano)
-    {
-        // Marca o plano como excluído (soft delete)
-        $plano->update(['excluido' => 'S']);
-
-        // Redireciona para a lista de planos com uma mensagem de sucesso
-        return redirect()->route('plano.index')->with('success', 'Plano excluído com sucesso.');
-    }
-
-
-    public function pesquisa(Request $request){
-
-        if($request == null){
-            redirect()->route('plano.index')->with('success', 'Nenhuma especialidade encontrada.');
-        }
-
-        $this->index($request);
-    }
 
 }

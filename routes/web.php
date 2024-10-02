@@ -71,12 +71,12 @@ Route::post('/plano/store', [PlanoController::class, 'store'])->name('plano.stor
 
 // Rotas para o gerenciamento de planos
 use App\Http\Controllers\admin\ProcedimentoController;
-Route::match(['get', 'post'], '/procedimento/create', [PlanoController::class, 'create'])->name('procedimento.create');
-Route::put('/procedimento/{hash}', [PlanoController::class, 'update'])->name('procedimento.update')->where('procedimento', '[0-9]+');
-Route::get('/procedimento/{hash}', [PlanoController::class, 'show'])->name('procedimento.show')->where('procedimento', '[0-9]+');
-Route::get('/procedimento/edit/{hash}', [PlanoController::class, 'edit'])->name('procedimento.edit')->where('procedimento', '[0-9]+');
-Route::match(['get', 'post'],'/plano', [PlanoController::class, 'index'])->name('procedimento.index');
-Route::post('/procedimento/store', [PlanoController::class, 'store'])->name('procedimento.store');
+Route::match(['get', 'post'], '/procedimento/create', [ProcedimentoController::class, 'create'])->name('procedimento.create');
+Route::put('/procedimento/{hash}', [ProcedimentoController::class, 'update'])->name('procedimento.update')->where('procedimento', '[0-9]+');
+Route::get('/procedimento/{hash}', [ProcedimentoController::class, 'show'])->name('procedimento.show')->where('procedimento', '[0-9]+');
+Route::get('/procedimento/edit/{hash}', [ProcedimentoController::class, 'edit'])->name('procedimento.edit')->where('procedimento', '[0-9]+');
+Route::match(['get', 'post'],'/procedimento', [ProcedimentoController::class, 'index'])->name('procedimento.index');
+Route::post('/procedimento/store', [ProcedimentoController::class, 'store'])->name('procedimento.store');
 
 
 
@@ -93,21 +93,6 @@ Route::post('/medico', [MedicoController::class, 'store'])->name('medico.store')
 Route::post('/medico/pesquisa', [MedicoController::class, 'index'])->name('medico.pesquisa');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Rotas para o gerenciamento de Apolices
 use App\Http\Controllers\admin\ApoliceController;
 Route::match(['get', 'post'], '/apolice/create', [ApoliceController::class, 'create'])->name('apolice.create');
@@ -116,8 +101,9 @@ Route::get('/apolice/{apolice}', [ApoliceController::class, 'show'])->name('apol
 Route::get('/apolice/{apolice}/edit', [ApoliceController::class, 'edit'])->name('apolice.edit')->where('apolice', '[0-9]+');
 Route::get('/apolice', [ApoliceController::class, 'index'])->name('apolice.index');
 Route::post('/apolice', [ApoliceController::class, 'store'])->name('apolice.store');
-Route::post('/apolice/exportar', [ApoliceController::class, 'exportar'])->name('apolice.exportar');
 Route::get('/apolice/relatorio', [ApoliceController::class, 'relatorio'])->name('apolice.relatorio');
+Route::post('/apolice/exportar', [ApoliceController::class, 'exportar'])->name('apolice.exportar');
+
 
 
 
