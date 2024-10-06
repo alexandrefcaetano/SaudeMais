@@ -9,6 +9,6 @@ class TipoAtendimento extends Model
     protected $table = 'tb_tipoatendimento';
     protected $primaryKey = 'id_tipoatendimento';
     protected $fillable = [
-        'tipoatendimento', 'status', 'obrigatoriocid', 'acessos_id', 'coberturas_id'
+        'tipoatendimento', 'ativo', 'obrigatoriocid', 'acessos_id', 'coberturas_id'
     ];
 }

@@ -44,17 +44,25 @@ class ProcedimentoController extends Controller
         $procedimentos = $query->orderBy('id_prcedimento', 'desc')->paginate($registrosPorPagina);
 
 
+        return view('admin.procedimento.grid', compact('procedimentos','registrosPorPagina'));
+    }
 
+    public function create()
+    {
 
-        // Buscar as Atendimento ativas e criptografar seus IDs
-        $tipoprocedimentos = TipoProcedimento::where('ativo', 'S')->get()->map(function ($tipoprocedimento) {
-            $tipoprocedimento->encrypted_id = encrypitar($tipoprocedimento['id_tipoatendimento']);
-            return $tipoprocedimento;
-        });
+        // Buscar os Tipos de Procedimentos ativos, ordenar por 'secundaria' em ordem ascendente, e criptografar seus IDs
+        $tipoprocedimentos = TipoProcedimento::where('ativo', 'S')
+            ->orderBy('secundaria', 'asc')  // Ordenar pela coluna 'secundaria' em ordem ascendente
+            ->get()
+            ->map(function ($tipoprocedimento) {
+                $tipoprocedimento->encrypted_id = encrypitar($tipoprocedimento['id_tipoatendimento']);
+                return $tipoprocedimento;
+            });
+
 
         // Buscar as Cobertura ativas e criptografar seus IDs
         $coberturas = Cobertura::where('ativo', 'S')->get()->map(function ($cobertura) {
-            $cobertura->encrypted_id = encrypitar($cobertura['id_atendimento']);
+            $cobertura->encrypted_id = encrypitar($cobertura['id_cobertura']);
             return $cobertura;
         });
 
@@ -70,12 +78,7 @@ class ProcedimentoController extends Controller
             return $prestador;
         });
 
-        return view('admin.procedimento.grid', compact('procedimentos','registrosPorPagina','tipoprocedimentos','coberturas','tipoatendimentos','prestadores'));
-    }
-
-    public function create()
-    {
-        return view('admin.procedimento.create');
+        return view('admin.procedimento.create',compact('tipoprocedimentos','coberturas','tipoatendimentos','prestadores'));
     }
 
     public function store(StoreProcedimentoRequest $request)

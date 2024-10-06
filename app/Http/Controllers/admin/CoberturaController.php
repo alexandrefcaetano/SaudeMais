@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Cobertura;
+use App\Models\CoberturaLimite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoberturaRequest;
@@ -93,18 +94,17 @@ class CoberturaController extends Controller
         return redirect()->route('cobertura.index')->with('success', 'Cobertura atualizada com sucesso.');
     }
 
-    /**
-     * Remove uma cobertura do banco de dados.
-     *
-     * @param  \App\Models\Cobertura  $cobertura
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Cobertura $cobertura)
-    {
-        // Exclui a cobertura
-        $cobertura->delete();
 
-        // Redireciona para a lista de coberturas com uma mensagem de sucesso
-        return redirect()->route('cobertura.index')->with('success', 'Cobertura excluída com sucesso.');
+    public function getSubCoberturas($cobertura_id)
+    {
+         // Buscar as Cobertura ativas e criptografar seus IDs
+        $subCoberturas = CoberturaLimite::where('cobertura_id', decrypitar($cobertura_id))->get()->map(function ($subcobertura) {
+            $subcobertura->encrypted_id = encrypitar($subcobertura['id_coberturalimite']);
+            return $subcobertura;
+        });
+
+        // Retornar os dados em JSON
+        return response()->json($subCoberturas);
     }
+
 }

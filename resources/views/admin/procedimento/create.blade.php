@@ -47,7 +47,7 @@
                     @endif
 
                     <!--begin::Form-->
-                    <form action="{{ route('procedimento.store') }}" class="kt-form kt-form--label-right form-empresa"  method="POST" novalidate="novalidate">
+                    <form action="{{ route('procedimento.store') }}" class="kt-form kt-form--label-right form-procedimento"  method="POST" novalidate="novalidate">
                         @csrf()
                         <div class="kt-portlet__body">
                             <div class="form-group row">
@@ -78,8 +78,8 @@
                                         <label for="status">Tipo Atendimento:</label>
                                         <select class="form-control"  id="tipoatendimento" name="tipoatendimento" required>
                                             <option value="">Selecione</option>
-                                            @forelse ($seguradoras as $seguradora)
-                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @forelse ($tipoatendimentos as $tipoatendimento)
+                                                <option value="{{ $tipoatendimento->encrypted_id }}  {{ old('id_tipoatendimento') == $tipoatendimento->id_tipoatendimento ? 'selected' : '' }}">{{ $tipoatendimento->tipoatendimento }}</option>
                                             @empty
                                                 <option value="">Nem um Registro Encontrado</option>
                                             @endforelse
@@ -91,8 +91,8 @@
                                         <label for="status">Prestador:</label>
                                         <select class="form-control"  id="prestador" name="prestador" required>
                                             <option value="">Selecione</option>
-                                            @forelse ($seguradoras as $seguradora)
-                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @forelse ($prestadores as $prestador)
+                                                <option value="{{ $prestador->encrypted_id }}  {{ old('id_prestador') == $prestador->id_prestador ? 'selected' : '' }}">{{ $prestador->nomefantasia }}</option>
                                             @empty
                                                 <option value="">Nem um Registro Encontrado</option>
                                             @endforelse
@@ -105,12 +105,12 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Cobertura:</label>
-                                        <select class="form-control"  id="cobertura" name="cobertura" required>
+                                        <select class="form-control" id="cobertura" name="cobertura" required>
                                             <option value="">Selecione</option>
-                                            @forelse ($seguradoras as $seguradora)
-                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @forelse ($coberturas as $cobertura)
+                                                <option value="{{ $cobertura->encrypted_id }} {{ old('id_cobertura') == $cobertura->id_cobertura ? 'selected' : '' }}">{{ $cobertura->cobertura }}</option>
                                             @empty
-                                                <option value="">Nem um Registro Encontrado</option>
+                                                <option value="">Nenhum registro encontrado</option>
                                             @endforelse
                                         </select>
                                     </div>
@@ -118,23 +118,19 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Sub-Cobertura:</label>
-                                        <select class="form-control"  id="seguradora_id" name="seguradora_id" required>
+                                        <select class="form-control" id="sub_cobertura" name="sub_cobertura" required>
                                             <option value="">Selecione</option>
-                                            @forelse ($seguradoras as $seguradora)
-                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
-                                            @empty
-                                                <option value="">Nem um Registro Encontrado</option>
-                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="status">Tipo de Procedimento:</label>
-                                        <select class="form-control"  id="seguradora_id" name="seguradora_id" required>
+                                        <select class="form-control"  id="tipoprocedimento" name="tipoprocedimento" required>
                                             <option value="">Selecione</option>
-                                            @forelse ($seguradoras as $seguradora)
-                                                <option value="{{ $seguradora->encrypted_id }}  {{ old('seguradora_id') == $seguradora->id_seguradora ? 'selected' : '' }}">{{ $seguradora->seguradora }}</option>
+                                            @forelse ($tipoprocedimentos as $tipoprocedimento)
+                                                <option value="{{ $tipoprocedimento->encrypted_id }}  {{ old('id_tipoprocedimento') == $tipoprocedimento->id_tipoprocedimento ? 'selected' : '' }}">{{ $tipoprocedimento->secundaria }}</option>
                                             @empty
                                                 <option value="">Nem um Registro Encontrado</option>
                                             @endforelse
@@ -174,11 +170,6 @@
                             </div>
 
 
-
-
-
-
-
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
                             <div class="form-group row">
@@ -208,10 +199,7 @@
                                     <input type="text" class="form-control" name="vlrdaudemais" minlength="2" maxlength="50" required value="{{ old('vlrSaudeMais') }}" placeholder="Ramo Atividade">
                                     <span class="form-text text-muted">Entre com o Corretor...</span>
                                 </div>
-
                             </div>
-
-
 
 
                         </div>
@@ -237,107 +225,7 @@
     <!-- end:: Content -->
 </div>
 
-<div class="modal fade" id="modal-atributo-valor" tabindex="-1" role="modal-atributo-valor" aria-labelledby="modal-atributo-valor" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <form role="form" name="form-atributo-valor" class="kt-form kt-form--label-right form-atributo-valor" method="POST"
-                  enctype="multipart/form-data">
-                  @csrf
-                  <input type="hidden" name="cod_atributo_valor" id="cod_atributo_valor" value="">
-                  <input type="hidden" name="index" id="index" value="">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Contato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <div class="col-lg-2">
-                            <label>Tipo:</label>
-                            <select name="tipo_contato" required class="form-control" tabindex="-98" aria-required="true">
-                                <option value="">Selecione...</option>
-                                <option value="CL">Celular</option>
-                                <option value="EM">Email</option>
-                                <option value="TF">Telefone fixo</option>
-                            </select>
-                            <span class="form-text text-muted">Tipo de Contato</span>
-                        </div>
-                        <div class="col-lg-6">
-                            <label class="form-control-label">Contato:</label>
-                            <input type="text" class="form-control" name="descricao_contato"  aria-required="true">
-                            <span class="form-text text-muted">Entre com seu contato</span>
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="">Principal:</label>
-                            <div class="kt-radio-inline">
-                                <label class="kt-radio kt-radio--solid">
-                                    <input type="radio" name="flg_principal"  value="T">Sim
-                                    <span></span>
-                                </label>
-                                <label class="kt-radio kt-radio--solid">
-                                    <input type="radio" name="flg_principal" checked="checked" value="F">Não
-                                    <span></span>
-                                </label>
-                            </div>
-                            <span class="form-text text-muted">Contato Principal?</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Incluir</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-
-
-
-
-<div class="modal fade show" id="modal-excluir" tabindex="-1" role="modal-excluir" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none;" >
-    <input type="hidden" name="index"/>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                Você tem certeza que deseja excluir o Contato?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Não</button>
-                <button type="button" onclick="excluirRegistro();" class="btn btn-primary">Sim</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade show" id="modal-obrigatorio" tabindex="-1" role="modal-obrigatorio" aria-labelledby="exampleModalLabel" aria-modal="true" style="display: none;" >
-    <input type="hidden" name="index"/>
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                OBRIGATORIO! ter um contato, e no minico um do tipo Email?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-elevate btn-pill btn-elevate-air btn-sm" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<?$itensAtributo = "{}";?>
 @endsection
 
 @section('scripts')
@@ -345,11 +233,7 @@
 <script>
 
     $(function () {
-        $('.pesquisar_select').select2();
-    });
-
-    $(function () {
-        $(".form-empresa").validate({
+        $(".form-procedimento").validate({
             focusInvalid: true,
             ignore: ":not(:visible),[readonly]",
             rules: {
@@ -365,162 +249,41 @@
                 seguradora_id:{             required: true }
             },
             submitHandler: function (e) {
-                var dadosItens = $('.table-contato').bootstrapTable("getData");
 
-                if (dadosItens.length > 0) {
-                    $('input[type=hidden][name=contato]').val(JSON.stringify(dadosItens));
-                }else{
-                    exibirModalObrigatorio();
-                    return false;
-                }
-                email = false;
-                $.each(dadosItens, function (index, row) {
-                    if (row.tipo_contato === 'EM') {
-                        email = true;
-                    }
-                });
-                if(email == false){
-                    exibirModalObrigatorio();
-                    return false;
-                }
-                return true;
             }
         });
-
-        $(".form-atributo-valor").validate({
-
-            focusInvalid: true,
-            ignore: ":not(:visible),[readonly]",
-            rules: {
-                descricao_contato: {    required: true, minlength: 2, maxlength: 150 },
-                flg_principal: {        required: true },
-                tipo_contato: {         required: true },
-                flg_principal: {        required: true },
-            },
-            submitHandler: function (form) {
-                // Prevenir o comportamento padrão de submissão
-                event.preventDefault();
-
-                let repetido = false;
-                let principalExiste = false;
-                let row2 = {
-                    tipo: $(form).find('[name=tipo_contato] option:selected').html(),
-                    tipo_contato: $(form).find('[name=tipo_contato] option:selected').val(),
-                    descricao: $(form).find('[name=descricao_contato]').val(),
-                    flg_principal: $(form).find('[name=flg_principal]:checked').val()
-                };
-                let table = $('.table-contato');
-
-                if ($(form).find('[name=index]').val() !== '') {
-                    table.bootstrapTable('updateRow', { index: $(form).find('[name=index]').val(), row: row2 });
-                } else {
-                    var dadosItens = table.bootstrapTable("getData");
-                    $.each(dadosItens, function (index, row) {
-                        if (row.flg_principal === "T") {
-                            principalExiste = true;
-                        }
-                        if (row.descricao === row2.descricao) {
-                            repetido = true;
-                        }
-                    });
-
-                    // Lógica para evitar múltiplos contatos principais
-                    if (row2.flg_principal === "T" && principalExiste) {
-                        alert('Já existe um contato principal. Apenas um contato pode ser marcado como principal.');
-                        return false;
-                    }
-
-                    if (!repetido) {
-                        table.bootstrapTable("insertRow", { index: dadosItens.length, row: row2 });
-                        fecharModalItem(); // Certifique-se de que essa função está definida
-                        return true;
-                    } else {
-                        alert('O Contato "' + row2.descricao + '" já existe');
-                    }
-                }
-            }
-        });
-
-        $('.tabela-itens-atributo').bootstrapTable('load', {{$itensAtributo}});
     });
 
-    function abrirModalItem(index) {
-        limparCamposModal();
-        let modal = $('#modal-atributo-valor');
-        modal.find('#tipo-operacao').html('Incluir');
-        modal.modal('show');
-    }
 
-    function fecharModalItem(index) {
-        limparCamposModal();
-        $('#modal-atributo-valor').modal('hide');
-    }
+    $(document).ready(function() {
+        // Quando o cobertura for selecionado
+        $('#cobertura').on('change', function() {
+            var cobertura_id = $(this).val();
 
-    function limparCamposModal() {
-        let form = $('[name=form-atributo-valor]');
-        let validator = form.validate();
+            // Limpa e desabilita as listas de sub cobertura se não tiver cobertura
+            $('#sub_cobertura').html('<option value="">Selecione uma Sub Cobertura</option>').prop('disabled', true);
 
-        form.find(".has-error").removeClass("has-error");
-        validator.resetForm();
-        validator.reset();
-
-        form.find('[name=index]').val('');
-        form.find('[name=cod_atributo_valor]').val('');
-        form.find('[name=num_ordem]').val('');
-        form.find('[name=qci_grupo_id]').val('');
-        form.find('[name=nome_grupo]').val('');
-    }
-
-    function formatAcao(value, row, index) {
-
-        let btnExcluir = '<a class="btn btn-sm btn-danger btn-icon btn-icon-md" href="javascript:exibirModalExclusao(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="la la-trash"></i>'
-            + '</a>';
-
-        return btnExcluir;
-    }
-
-    function formatPrincipal(value, row, index) {
-            var principal = "";
-
-            if (value == 'F') {
-                principal = 'Não';
-            } else if (value == 'T') {
-                principal = 'Sim';
+            // Se o cobertura estiver selecionado, busca as províncias
+            if (cobertura_id) {
+                $.ajax({
+                    url: '/cobertura/getSubCoberturas/' + cobertura_id,  // Corrige a URL com cobertura_id
+                    type: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        if (response.length > 0) {
+                            $('#sub_cobertura').prop('disabled', false);
+                            $.each(response, function(key, sub_cobertura) {
+                                $('#sub_cobertura').append('<option value="' + sub_cobertura.encrypted_id + '">' + sub_cobertura.coberturalimite + '</option>');
+                            });
+                        }
+                    }
+                });
             }
-
-            return principal;
-        }
-
-
-
-    function exibirModalExclusao(index) {
-        let valor = index;
-        $('#modal-excluir').find('[name=index]').val(valor);
-        var modal = $('#modal-excluir');
-        modal.modal('show');
-    }
-
-    function excluirRegistro() {
-        var modal = $('#modal-excluir');
-        valor = modal.find('[name=index]').val();
-
-        modal.modal('hide');
-        let table = $('.table-contato');
-        var dados = table.bootstrapTable("getData");
-        dados.splice(valor, 1);
-        table.bootstrapTable("load", dados);
-
-        $(table).closest('form').data("changed", true);
-    }
-
-    function exibirModalObrigatorio(index) {
-        var modal = $('#modal-obrigatorio');
-        modal.modal('show');
-    }
-
+        });
+    });
 
 </script>
+
 
 
 @endsection

@@ -175,6 +175,12 @@
                                             <span class="kt-menu__link-text">Banco</span>
                                         </a>
                                     </li>
+                                    <li class="kt-menu__item {{ ativadorSubLinks(['cliente.*']) }}" aria-haspopup="true">
+                                        <a href="{{ route('cliente.index') }}" class="kt-menu__link ">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Cliente</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -204,16 +210,11 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-interface-1"></i><span class="kt-menu__link-text">Portlets</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-interface-1"></i><span class="kt-menu__link-text">Importações</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                 <ul class="kt-menu__subnav">
-                                    <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Portlets</span></span></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_base.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Base Portlets</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_advanced.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Advanced Portlets</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_tabbed.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tabbed Portlets</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_draggable.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Draggable Portlets</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_tools.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Portlet Tools</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="components_portlets_sticky-head.html" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Sticky Head</span></a></li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Beneficiarios</span></a></li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Advanced Portlets</span></a></li>
                                 </ul>
                             </div>
                         </li>

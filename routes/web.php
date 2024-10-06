@@ -81,7 +81,6 @@ Route::post('/procedimento/store', [ProcedimentoController::class, 'store'])->na
 
 
 
-
 // Rotas para o gerenciamento de Medicos
 use App\Http\Controllers\admin\MedicoController;
 Route::match(['get', 'post'], '/medico/create', [MedicoController::class, 'create'])->name('medico.create');
@@ -126,6 +125,7 @@ Route::get('/cobertura/{cobertura}/edit', [CoberturaController::class, 'edit'])-
 Route::get('/cobertura', [CoberturaController::class, 'index'])->name('cobertura.index');
 Route::post('/cobertura', [CoberturaController::class, 'store'])->name('cobertura.store');
 Route::match(['get', 'post'], '/cobertura/create', [CoberturaController::class, 'create'])->name('cobertura.create');
+Route::get('/cobertura/getSubCoberturas/{cobertura}', [CoberturaController::class, 'getSubCoberturas'])->name('cobertura.getSubCoberturas');
 
 
 
@@ -134,6 +134,24 @@ Route::match(['get', 'post'], '/cobertura/create', [CoberturaController::class, 
 use App\Http\Controllers\LocalizacaoController;
 Route::get('/provincias/{pais_id}', [LocalizacaoController::class, 'getProvincias'])->name('get.provincias');
 Route::get('/municipios/{provincia_id}', [LocalizacaoController::class, 'getMunicipios'])->name('get.municipios');
+
+
+// Rotas para o gerenciamento de Localizacoes
+use App\Http\Controllers\admin\ClienteController;
+Route::match(['get', 'post'],'/cliente', [ClienteController::class, 'index'])->name('cliente.index');
+Route::get('/cliente/createImportacao', [ClienteController::class, 'createImportacao'])->name('cliente.createImportacao');
+Route::get('/cliente/importarClientes', [ClienteController::class, 'importarClientes'])->name('cliente.importarClientes');
+Route::post('/cliente/confirmarImportacao', [ClienteController::class, 'confirmarImportacao'])->name('cliente.confirmarImportacao');
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/', function () {
