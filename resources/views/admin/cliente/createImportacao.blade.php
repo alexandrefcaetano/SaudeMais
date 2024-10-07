@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form action="{{ route('cliente.importarClientes') }}" class="kt-form kt-form--label-right form-importacao-cliente"  method="POST" novalidate="novalidate">
+                        <form action="{{ route('cliente.importarClientes') }}" class="kt-form kt-form--label-right form-importacao-cliente" enctype="multipart/form-data"   method="POST" novalidate="novalidate">
                             @csrf()
                             <div class="kt-portlet__body">
 

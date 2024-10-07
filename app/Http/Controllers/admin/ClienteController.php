@@ -33,13 +33,20 @@ class ClienteController extends Controller
 
     public function importarClientes(Request $request)
     {
-        $import = new ClientesImport();
-        Excel::import($import, $request->file('arquivo'));  // Realiza o processo de importação
+        // Verifica se o arquivo foi enviado e se é do tipo Excel
+        $file = $request->file('arquivo');
+        if (!$file->isValid() || !in_array($file->getClientOriginalExtension(), ['xlsx', 'xls', 'csv'])) {
+            return redirect()->back()->withErrors(['arquivo' => 'Arquivo inválido. Certifique-se de que é um arquivo Excel ou CSV.']);
+        }
 
-        // Verifica se houve erros
-        if (!empty($import->getErrors())) {
-            // Retorna os erros encontrados para a view para que o usuário possa decidir o que fazer
-            return view('importacao.erros', ['erros' => $import->getErrors(), 'dadosValidos' => $import->getValidRows()]);
+        $import = new ClientesImport();
+
+        try {
+            // Especifica o tipo de arquivo explicitamente ou garante que o tipo seja inferido pela extensão
+            Excel::import($import, $file);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            // Retorna os erros encontrados para a view
+            return view('importacao.erros', ['erros' => $e->failures()]);
         }
 
         // Se o usuário decidir prosseguir com a importação dos registros válidos
@@ -49,6 +56,7 @@ class ClienteController extends Controller
 
         return redirect()->back()->with('success', 'Importação realizada com sucesso.');
     }
+
 
     public function confirmarImportacao(Request $request)
     {

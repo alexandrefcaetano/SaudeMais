@@ -62,11 +62,13 @@ class ClientesImport implements ToCollection
      */
     public function collection(Collection $rows)
     {
+
+        //dd($rows);
         foreach ($rows as $index => $row) {
-            $tipoCartao = $row[15];
+            $tipoCartao = $row[14];
             $numeroCartao = $row[11];
             $idApolice = $row[9];
-            $lote = $row[17];
+            $lote = $row[7];
 
             // Geração do número do cartão, se necessário
             if ($tipoCartao === "S" && empty($numeroCartao)) {

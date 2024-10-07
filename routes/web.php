@@ -140,7 +140,7 @@ Route::get('/municipios/{provincia_id}', [LocalizacaoController::class, 'getMuni
 use App\Http\Controllers\admin\ClienteController;
 Route::match(['get', 'post'],'/cliente', [ClienteController::class, 'index'])->name('cliente.index');
 Route::get('/cliente/createImportacao', [ClienteController::class, 'createImportacao'])->name('cliente.createImportacao');
-Route::get('/cliente/importarClientes', [ClienteController::class, 'importarClientes'])->name('cliente.importarClientes');
+Route::post('/cliente/importarClientes', [ClienteController::class, 'importarClientes'])->name('cliente.importarClientes');
 Route::post('/cliente/confirmarImportacao', [ClienteController::class, 'confirmarImportacao'])->name('cliente.confirmarImportacao');
 
 
