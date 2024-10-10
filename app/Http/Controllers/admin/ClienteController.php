@@ -33,29 +33,40 @@ class ClienteController extends Controller
 
     public function importarClientes(Request $request)
     {
-        // Verifica se o arquivo foi enviado e se é do tipo Excel
         $file = $request->file('arquivo');
+
+        // Verifica se o arquivo é válido e do tipo permitido
         if (!$file->isValid() || !in_array($file->getClientOriginalExtension(), ['xlsx', 'xls', 'csv'])) {
             return redirect()->back()->withErrors(['arquivo' => 'Arquivo inválido. Certifique-se de que é um arquivo Excel ou CSV.']);
         }
 
+        // Cria a instância do importador de clientes
         $import = new ClientesImport();
 
         try {
-            // Especifica o tipo de arquivo explicitamente ou garante que o tipo seja inferido pela extensão
+            // Importa o arquivo
             Excel::import($import, $file);
+
+            // Obtém os erros usando o método getErrors()
+            $linhas_arquivo = [
+                'arquivo_id' => null,
+                'nome_arquivo' => $file->getClientOriginalName(),
+            ];
+
+            $linhas_erros =  $import->getErrors();
+            $linhas_analise = array_merge($linhas_arquivo, $linhas_erros);
+
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            // Retorna os erros encontrados para a view
+            // Retorna a visualização de erros
             return view('importacao.erros', ['erros' => $e->failures()]);
         }
 
-        // Se o usuário decidir prosseguir com a importação dos registros válidos
-        foreach ($import->getValidRows() as $beneficiario) {
-            $beneficiario->save();
-        }
-
-        return redirect()->back()->with('success', 'Importação realizada com sucesso.');
+        // Retorna a análise completa para a visualização
+        return view('admin.cliente.createImportacao', compact('linhas_analise'));
     }
+
+
+
 
 
     public function confirmarImportacao(Request $request)
@@ -78,6 +89,19 @@ class ClienteController extends Controller
         session()->forget('registrosValidos');
 
         return redirect()->back()->with('success', 'Registros válidos importados com sucesso.');
+    }
+
+    public function download($filename)
+    {
+
+        $filePath = storage_path('app/public/modelos/' . $filename); // Se o arquivo estiver na pasta "storage/app/public"
+
+        // Verifique se o arquivo existe
+        if (!file_exists($filePath)) {
+            abort(404, 'Arquivo não encontrado.');
+        }
+        // Retorna o arquivo para download
+        return response()->download($filePath);
     }
 
 }

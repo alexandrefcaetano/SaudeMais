@@ -142,6 +142,7 @@ Route::match(['get', 'post'],'/cliente', [ClienteController::class, 'index'])->n
 Route::get('/cliente/createImportacao', [ClienteController::class, 'createImportacao'])->name('cliente.createImportacao');
 Route::post('/cliente/importarClientes', [ClienteController::class, 'importarClientes'])->name('cliente.importarClientes');
 Route::post('/cliente/confirmarImportacao', [ClienteController::class, 'confirmarImportacao'])->name('cliente.confirmarImportacao');
+Route::get('/cliente/download/{filename}', [ClienteController::class, 'download'])->name('cliente.download');
 
 
 

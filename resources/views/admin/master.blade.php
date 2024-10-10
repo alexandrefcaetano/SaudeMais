@@ -52,17 +52,22 @@
     <!--end:: Global Optional Vendors -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.css">
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="{{ asset('assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/base/style.bundle.css?v=1.01')}}" rel="stylesheet" type="text/css" />
 
     <!--end::Global Theme Styles -->
 
     <!--begin::Layout Skins(used by all pages) -->
     <link href="{{ asset('assets/demo/default/skins/header/base/light.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/header/menu/light.css?v=1.2')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/brand/dark.css?v=1.2')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/aside/dark.css?v=1.5')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/header/menu/light.css?v=1.4')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/brand/dark.css?v=1.4')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/dark.css?v=1.2')}}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.12')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.25')}}" rel="stylesheet" type="text/css" />
+{{--    <link href="{{ asset('assets/demo/default/skins/aside/bootstrap.css?v=1.0')}}" rel="stylesheet" type="text/css" />--}}
+
+
+    <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
+
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
 </head>
@@ -934,6 +939,16 @@
 
 <!--begin::Global App Bundle(used by all pages) -->
 <script src="{{ asset('assets/app/bundle/app.bundle.js')}}" type="text/javascript"></script>
+
+
+<script src="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
+
+
+{{--<script src="{{ asset('assets/demo/default/skins/aside/bootstrap.js')}}" type="text/javascript"></script>--}}
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
 
