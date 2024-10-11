@@ -136,37 +136,25 @@
 @section('scripts')
 
     <script>
-        // $(function () {
-        //     $(".form-apolice-relatorio").validate({
-        //         focusInvalid: true,
-        //         ignore: ":not(:visible),[readonly]",
-        //         rules: {
-        //             dataInicioCobertura:{    required: true },
-        //             dataFimCobertura:{       required: true }
-        //         },
-        //         submitHandler: function (e) {
-        //             var dadosItens = $('.table-contato').bootstrapTable("getData");
-        //
-        //             if (dadosItens.length > 0) {
-        //                 $('input[type=hidden][name=contato]').val(JSON.stringify(dadosItens));
-        //             }else{
-        //                 alert("Obrigatorio contato");
-        //                 return false;
-        //             }
-        //             email = false;
-        //             $.each(dadosItens, function (index, row) {
-        //                 if (row.tipo_contato === 'EM') {
-        //                     email = true;
-        //                 }
-        //             });
-        //             if(email == false){
-        //                 alert("E-mail obrigatório");
-        //                 return false;
-        //             }
-        //             return true;
-        //         }
-        //     });
-        // });
+        $(function () {
+            $(".form-apolice-relatorio").validate({
+                focusInvalid: true,
+                ignore: ":not(:visible),[readonly]",
+                rules: {
+                    dataInicioCobertura:{    required: true },
+                    dataFimCobertura:{       required: true }
+                },
+                submitHandler: function (form) {
+
+                    KTApp.blockPage();
+
+                    setTimeout(function() {
+                        KTApp.unblockPage();
+                        form.submit();
+                    }, 3000);
+                }
+            });
+        });
 
     </script>
 

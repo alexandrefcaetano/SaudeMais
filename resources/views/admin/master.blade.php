@@ -82,7 +82,7 @@
 <!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
-        <a href="#">
+        <a href="{{route('dashboard')}}">
             <img alt="Logo" src="{{ asset('assets/media/logos/logo_saude_mais.png')}}" />
         </a>
     </div>
@@ -104,7 +104,7 @@
             <!-- begin:: Aside -->
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
-                    <a href="index.html">
+                    <a href="{{route('dashboard')}}">
                         <img alt="Logo" src="{{ asset('assets/media/logos/logo_saude_mais.png')}}" />
                     </a>
                 </div>
@@ -131,7 +131,7 @@
             <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                 <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
                     <ul class="kt-menu__nav ">
-                        <li class="kt-menu__item " aria-haspopup="true"><a href="index.html" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Dashboard</span></a></li>
+                        <li class="kt-menu__item " aria-haspopup="true"><a href="{{route('dashboard')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-home"></i><span class="kt-menu__link-text">Dashboard</span></a></li>
                         <li class="kt-menu__section ">
                             <h4 class="kt-menu__section-text">Layout</h4>
                             <i class="kt-menu__section-icon flaticon-more-v2"></i>
