@@ -21,10 +21,31 @@ use App\Http\Controllers\admin\EmpresaController;
 
 Route::match(['get', 'post'], '/empresa/create', [EmpresaController::class, 'create'])->name('empresa.create');
 Route::put('/empresa/{hash}', [EmpresaController::class, 'update'])->name('empresa.update');
-Route::get('/empresa/{hash}', [EmpresaController::class, 'show'])->name('empresa.show');
+Route::get('/empresa/show/{hash}', [EmpresaController::class, 'show'])->name('empresa.show');
 Route::get('/empresa/edit/{hash}', [EmpresaController::class, 'edit'])->name('empresa.edit');
 Route::match(['get', 'post'],'/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
 Route::post('/empresa/store', [EmpresaController::class, 'store'])->name('empresa.store');
+
+Route::get('empresa/export/', [EmpresaController::class, 'export'])->name('empresa.export');
+
+
+
+use App\Http\Controllers\admin\ServicoController;
+Route::match(['get', 'post'], '/servico/create', [EmpresaController::class, 'create'])->name('servico.create');
+Route::get('servico', [ServicoController::class, 'index'])->name('servico.index');
+Route::get('servico/export/', [ServicoController::class, 'export'])->name('servico.export');
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

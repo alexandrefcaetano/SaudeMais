@@ -27,7 +27,8 @@ class ClienteController extends Controller
 
     public function createImportacao()
     {
-        return view('admin.cliente.createImportacao'); // View da tela de importação cliente
+        $linhas_analise = array();
+        return view('admin.cliente.createImportacao',compact('linhas_analise')); // View da tela de importação cliente
     }
 
 
@@ -66,15 +67,8 @@ class ClienteController extends Controller
     }
 
 
-
-
-
     public function confirmarImportacao(Request $request)
     {
-        // Aqui você vai precisar recuperar os registros válidos que foram processados na etapa anterior.
-        // Para simplificação, você pode utilizar a sessão para armazená-los temporariamente.
-
-        $registrosValidos = session('registrosValidos');
 
         if (empty($registrosValidos)) {
             return redirect()->back()->with('error', 'Não há registros válidos para importar.');
@@ -84,9 +78,6 @@ class ClienteController extends Controller
         foreach ($registrosValidos as $registro) {
             $registro->save();
         }
-
-        // Limpa a sessão após a importação
-        session()->forget('registrosValidos');
 
         return redirect()->back()->with('success', 'Registros válidos importados com sucesso.');
     }

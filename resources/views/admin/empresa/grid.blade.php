@@ -26,83 +26,141 @@
         <div class="kt-portlet kt-portlet--mobile">
             <div class="kt-portlet__head kt-portlet__head--lg">
                 <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon">
-                        <i class="flaticon-users"></i>
-                    </span>
-                    <h3 class="kt-portlet__head-title">
-                        Lista de Empresa
-                    </h3>
+                        <span class="kt-portlet__head-icon">
+                            <i class="kt-font-brand flaticon2-line-chart"></i>
+                        </span>
+                    <h3 class="kt-portlet__head-title"> Lista de Empresa</h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <div class="kt-portlet__head-wrapper">
-                        <a href="{{ route('empresa.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
-                            <i class="la la-plus"></i>
-                            Nova Empresa
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <!--begin: Search Form -->
-                <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-                    <div class="row align-items-center">
-                        <form action="{{ route('empresa.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
-                            @csrf()
-                            <div class="col-xl-8 order-2 order-xl-1">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                        <div class="form-group">
-                                            <label for="status">Pesquisar:</label>
-                                            <input type="text" name="nomefantasia" value="{{ old('nomefantasia', request('nomefantasia')) }}" class="form-control" placeholder="Search..." id="generalSearch">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                        <div class="form-group">
-                                            <label for="status">Ativo:</label>
-                                            <select class="form-control" id="ativo" name="ativo" required>
-                                                <option  value="">Selecione...</option>
-                                                <option value="S"  {{ old('ativo', request('ativo')) == 'S' ? 'selected' : '' }}>Sim</option>
-                                                <option value="N"  {{ old('ativo', request('ativo')) == 'N' ? 'selected' : '' }}>Não</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                                        <div class="form-group">
-                                            <label for="status">Seguradora:</label>
-                                            <select class="form-control m-select2 pesquisar_select" id="pesquisar_select" name="seguradora">
-                                                <option value="">Selecione</option>
-                                                @forelse ($seguradoras as $seguradora)
-                                                    <option value="{{ $seguradora->encrypted_id }}" {{ old('seguradora_id', request('seguradora_id')) == $seguradora->id_seguradora ? 'selected' : '' }}>
-                                                        {{ $seguradora->seguradora }}
-                                                    </option>
-                                                @empty
-                                                    <option value="">Nenhum Registro Encontrado</option>
-                                                @endforelse
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 kt-margin-b-20-tablet-and-mobile">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <button type="submit" class="btn btn-success">Pesquisa</button>
-                                                    <a href="{{ route('empresa.index') }}" class="btn btn-warning">Limpar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="kt-portlet__head-actions">
+                            <a href="{{ route('empresa.export') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="la la-plus"></i>
+                                Nova Empresa
+                            </a>
+
+
+
+                            <div class="dropdown dropdown-inline">
+                                <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i> Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="kt-nav">
+                                        <li class="kt-nav__section kt-nav__section--first">
+                                            <span class="kt-nav__section-text">Choose an option</span>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link export-btn" data-type="print">
+                                                <i class="kt-nav__link-icon la la-print"></i>
+                                                <span class="kt-nav__link-text">Print</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link export-btn" data-type="Xlsx">
+                                                <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                <span class="kt-nav__link-text">Excel</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link export-btn" data-type="csv">
+                                                <i class="kt-nav__link-icon la la-file-text-o"></i>
+                                                <span class="kt-nav__link-text">CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link export-btn" data-type="ods">
+                                                <i class="kt-nav__link-icon la la-file-pdf-o"></i>
+                                                <span class="kt-nav__link-text">ODS</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </form>
 
-
+                            &nbsp;
+                            <a href="{{ route('empresa.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="la la-plus"></i>
+                                Nova Empresa
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <!--end: Search Form -->
             </div>
+
+
+
             <div class="kt-portlet__body kt-portlet__body--fit">
 
                 <div class="kt-portlet__body">
+                    <!--begin: Search Form -->
+                    <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+                        <form action="{{ route('empresa.index') }}" method="POST" novalidate="novalidate" class="kt-form kt-form--label-right form-empresa">
+                        @csrf()
+                            <div class="row align-items-center">
+                                <div class="col-xl-12 order-2 order-xl-1">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                            <div class="kt-input-icon kt-input-icon--left">
+                                                <input type="text" class="form-control" placeholder="Search..." id="generalSearch"  value="{{ old('nomefantasia', request('nomefantasia')) }}" name="nomefantasia">
+                                                <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                    <span><i class="la la-search"></i></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                            <div class="kt-form__group kt-form__group--inline">
+                                                <div class="kt-form__label">
+                                                    <label>Ativo:</label>
+                                                </div>
+                                                <div class="kt-form__control">
+                                                    <select class="form-control" id="ativo" name="ativo" required>
+                                                        <option  value="">Selecione...</option>
+                                                        <option value="S"  {{ old('ativo', request('ativo')) == 'S' ? 'selected' : '' }}>Sim</option>
+                                                        <option value="N"  {{ old('ativo', request('ativo')) == 'N' ? 'selected' : '' }}>Não</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                            <div class="kt-form__group kt-form__group--inline">
+                                                <div class="kt-form__label">
+                                                    <label>Seguradora:</label>
+                                                </div>
+                                                <div class="kt-form__control">
+                                                    <select class="form-control m-select2 pesquisar_select" id="pesquisar_select" name="seguradora">
+                                                        <option value="">Selecione</option>
+                                                        @forelse ($seguradoras as $seguradora)
+                                                            <option value="{{ $seguradora->encrypted_id }}" {{ old('seguradora_id', request('seguradora_id')) == $seguradora->id_seguradora ? 'selected' : '' }}>
+                                                                {{ $seguradora->seguradora }}
+                                                            </option>
+                                                        @empty
+                                                            <option value="">Nenhum Registro Encontrado</option>
+                                                        @endforelse
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 kt-margin-b-20-tablet-and-mobile">
+                                                <button type="submit" class="btn btn-success">Pesquisa</button>
+                                                <a href="{{ route('empresa.index') }}" class="btn btn-warning">Limpar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 order-1 order-xl-2 kt-align-right">
+                                    <a href="#" class="btn btn-default kt-hidden">
+                                        <i class="la la-cart-plus"></i> New Order
+                                    </a>
+                                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--end: Search Form -->
+
+
+
 
                     <!--begin::Section-->
                     <div class="kt-section">
@@ -188,6 +246,50 @@
 </div>
 
 
+
+
+@endsection
+@section('scripts')
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    // Captura o clique nos botões de exportação
+                    $('.export-btn').on('click', function(e) {
+                        e.preventDefault();
+
+                        // Obtém o formato selecionado
+                        var fileType = $(this).data('type');
+                        if (fileType === 'print') {
+                            alert('Função de impressão não implementada');
+                            return;
+                        }
+
+                        // Dados a serem enviados via POST
+                        let formData = {
+                            file_type: fileType,
+                            _token: '{{ csrf_token() }}'  // Garante que o token CSRF seja enviado com a requisição
+                        };
+
+                        // Realiza a requisição AJAX
+                        $.ajax({
+                            url: "{{ route('empresa.export') }}",  // A rota para exportação
+                            type: 'POST',
+                            data: formData,
+                            success: function(response) {
+                                // Exibe uma mensagem de sucesso
+                                alert(' sucesso  '+response.message);
+                            },
+                            error: function(xhr) {
+                                // Em caso de erro, exibe uma mensagem
+                                alert('Erro: ' + xhr.responseText);
+                            }
+                        });
+                    });
+                });
+
+
+
+            </script>
 
 
 @endsection

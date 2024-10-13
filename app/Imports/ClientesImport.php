@@ -94,6 +94,7 @@ class ClientesImport implements ToCollection
     {
 
         $linhas_analise = [];
+        $linhas_analise['erros']=[];
 
         foreach ($rows as $idLinha => $linha) {
 
@@ -246,7 +247,7 @@ class ClientesImport implements ToCollection
 
     private function setErroParaSituacaoInvalida(int $idLinha, array $linha, array &$linhas_analise)
     {
-        if (!empty($linha[8]) && !in_array($linha[8], ['ATIVA', 'CANCELADA', 'SUSPENSA'])) {
+        if (!empty($linha[8]) && !in_array($linha[8], ['ATIVA', 'CANCELADA', 'SUSPENSA','NORMAL'])) {
             $linhas_analise['erros'][$idLinha][] = $this->setErroPara(
                 $linha,
                 'Situação',

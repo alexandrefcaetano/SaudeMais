@@ -4,15 +4,74 @@ namespace App\Http\Controllers\admin;
 
 use App\Classes;
 use App\Models\Empresa;
+use App\Exports\EmpresaExport;
+
 use App\Models\Seguradora;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmpresaRequest;
 use App\Helpers\EnvHelper;
+use App\Jobs\ExportEmpresasJob;
+
+use App\Exports\EmpresasExport;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class EmpresaController extends Controller
 {
+
+
+
+
+    /**
+     * gera arquivo de empresa/.
+     *
+     * @param  \App\Models\Empresa  $empresa
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function export(Request $request)
+    {
+
+        return Excel::download(new EmpresasExport, 'empresas.xlsx');
+
+//
+//        $request->validate([
+//            'file_type' => 'required|in:Xlsx,csv,xls,ods',
+//        ]);
+//
+//        $fileType = $request->input('file_type');
+//
+//        switch ($fileType) {
+//            case 'Xlsx':
+//                $exportFormat = \Maatwebsite\Excel\Excel::XLSX;
+//                break;
+//            case 'csv':
+//                $exportFormat = \Maatwebsite\Excel\Excel::CSV;
+//                break;
+//            case 'ods':
+//                $exportFormat = \Maatwebsite\Excel\Excel::ODS;
+//                break;
+//            case 'xls':
+//                $exportFormat = \Maatwebsite\Excel\Excel::XLS;
+//                break;
+//            default:
+//                $exportFormat = \Maatwebsite\Excel\Excel::XLSX;
+//                break;
+//        }
+//
+//        $fileName = 'empresas_export_' . date('d-m-y-hms') . '.' . strtolower($fileType);
+//
+//        // Despacha o job para a fila
+//        ExportEmpresasJob::dispatch($fileName);
+//
+//        // Aqui você retorna o download do arquivo
+//        return Excel::download(new EmpresaExport, $fileName, $exportFormat);
+
+    }
+
+
+
 
     /**
      * Exibe a lista de empresas.
@@ -184,23 +243,5 @@ class EmpresaController extends Controller
 
 
 
-    /**
-     * Remove uma empresa do banco de dados.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Empresa $empresa)
-    {
-        // Marca a empresa como excluída (soft delete)
-        $empresa->update(['excluido' => 'S']);
 
-        // Redireciona para a lista de empresas com uma mensagem de sucesso
-        return redirect()->route('empresa.index')->with('success', 'Empresa excluída com sucesso.');
-    }
-
-    public function pesquisa(Request $request){
-
-        $this->index($request);
-    }
 }

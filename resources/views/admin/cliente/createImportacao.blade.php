@@ -174,11 +174,14 @@
                             @endif
                         </div>
                     </div>
-                    <input type="hidden" name="nome_arquivo" value="{{ $linhas_analise['nome_arquivo']}}">
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        @if (empty($linhas_analise['erros']['1']) && count($linhas_analise['erros']['1']) < 1 )
-                            <button type="submit" class="btn btn-success" name="btn-importar">Importar</button>
+                        @if (!empty($linhas_analise))
+                            @if (is_array($linhas_analise['erros']) && count($linhas_analise['erros']) < 1 )
+                                <input type="hidden" name="nome_arquivo" value="{{ $linhas_analise['nome_arquivo']}}">
+                                <button type="submit" class="btn btn-success" name="btn-importar">Importar</button>
+                            @endif
                         @endif
                     </div>
                 </form>
