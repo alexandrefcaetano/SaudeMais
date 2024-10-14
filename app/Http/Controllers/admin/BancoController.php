@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\BancosExport;
 use App\Models\Banco;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -163,18 +164,11 @@ class BancoController extends Controller
         return redirect()->route('banco.index')->with('success', 'Banco atualizado com sucesso.');
     }
 
-    /**
-     * Remove um banco do banco de dados.
-     *
-     * @param  \App\Models\Banco  $banco
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Banco $banco)
+    public function export()
     {
-        // Exclui o banco
-        $banco->delete();
-
-        // Redireciona para a lista de bancos com uma mensagem de sucesso
-        return redirect()->route('banco.index')->with('success', 'Banco excluído com sucesso.');
+        $fileName = 'Banco_export.xlsx';
+        return Excel::download(new BancosExport,$fileName);
     }
+
+
 }

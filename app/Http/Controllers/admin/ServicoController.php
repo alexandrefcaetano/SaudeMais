@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Exports\ServicosExport;
+
 use App\Http\Controllers\Controller;
 use App\Models\Servico;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-use App\Jobs\ExportServices;
+use App\Jobs\ExportServicoJob;
 
 class ServicoController extends Controller
 {
@@ -60,20 +60,11 @@ class ServicoController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function export(Request $request)
+
+    public function export()
     {
-
-        $fileName = 'servicos_export.xlsx'; // Nome do arquivo a ser exportado
-        ExportServices::dispatch($fileName); // Dispara o job
-
-        return response()->json(['message' => 'Exportação iniciada!', 'fileName' => $fileName]);
-
-        // Despacha o evento após a exportação ser concluída
-    //    event(new ExportCompleted($fileName)); // Aqui está o código
-
-    //    return response()->download(storage_path("app/{$fileName}"));
-
-        //return Excel::download(new ServicosExport, 'Sercicos.xlsx');
+        $fileName = 'service_export.xlsx';
+        return Excel::download(new ExportServicoJob,$fileName);
     }
 
 }

@@ -65,8 +65,9 @@
     <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.25')}}" rel="stylesheet" type="text/css" />
 {{--    <link href="{{ asset('assets/demo/default/skins/aside/bootstrap.css?v=1.0')}}" rel="stylesheet" type="text/css" />--}}
 
-
     <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
+
+    @livewireStyles
 
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico')}}" />
@@ -953,6 +954,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table-locale-all.min.js"></script>
+
+
+@livewireScripts
+
 
 
 @yield('scripts')
