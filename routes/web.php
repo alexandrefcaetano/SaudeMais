@@ -122,8 +122,7 @@ Route::get('/apolice/{apolice}/edit', [ApoliceController::class, 'edit'])->name(
 Route::get('/apolice', [ApoliceController::class, 'index'])->name('apolice.index');
 Route::post('/apolice', [ApoliceController::class, 'store'])->name('apolice.store');
 Route::get('/apolice/relatorio', [ApoliceController::class, 'relatorio'])->name('apolice.relatorio');
-Route::post('/apolice/exportar', [ApoliceController::class, 'exportar'])->name('apolice.exportar');
-
+Route::post('/apolice/export', [ApoliceController::class, 'export'])->name('apolice.export');
 
 
 

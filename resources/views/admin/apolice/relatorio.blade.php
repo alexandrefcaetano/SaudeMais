@@ -54,7 +54,7 @@
                         @endif
 
                         <!--begin::Form-->
-                        <form action="{{ route('apolice.exportar') }}" class="kt-form kt-form--label-right form-apolice-relatorio"  method="POST" novalidate="novalidate">
+                        <form action="{{ route('apolice.export') }}" class="kt-form kt-form--label-right form-apolice-relatorio"  method="POST" novalidate="novalidate">
                             @csrf()
                             <div class="kt-portlet__body">
                                 <div class="form-group row">
@@ -95,7 +95,7 @@
                                                 <i class="la la-calendar-check-o"></i>
                                             </span>
                                             </div>
-                                            <input type="text" class="form-control" name="dataInicioCobertura" placeholder="Selecione Data" id="kt_datepicker_2">
+                                            <input type="text" class="form-control datepicker" name="dataInicioCobertura" placeholder="Selecione Data" id="datepicker">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -106,7 +106,7 @@
                                                 <i class="la la-calendar-check-o"></i>
                                             </span>
                                             </div>
-                                            <input type="text" class="form-control" name="dataFimCobertura"   value="{{ old('dataFimCobertura') }}" placeholder="Selecione Data">
+                                            <input type="text" class="form-control datepicker" name="dataFimCobertura"   value="{{ old('dataFimCobertura') }}" id="datepicker" placeholder="Selecione Data">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -155,6 +155,16 @@
                 }
             });
         });
+
+        // input group layout
+        $('.datepicker').datepicker({
+            rtl: KTUtil.isRTL(),
+            todayHighlight: true,
+            orientation: "bottom left",
+            format: 'dd/mm/yyyy', // Formato da data
+            autoclose: true // Para fechar o calendário ao selecionar a data
+        });
+
 
     </script>
 

@@ -150,9 +150,9 @@
                                             </td>
                                             <td>{{ $apolice->codigoApolice }}</td>
                                             <td>{{ $apolice->apolice }}</td>
-                                            <td>{{ $apolice->seguradora_id ? $apolice->seguradora->nome : 'Não Informada' }}</td>
+                                            <td>{{ $apolice->seguradora_id  }}</td>
                                             <td>{{ $apolice->apoliceSeguradora }}</td>
-                                            <td>{{ $apolice->empresa_id ? $apolice->empresa->nome : 'Não Informada' }}</td>
+                                            <td>{{ $apolice->empresa_id }}</td>
                                             <td>{{ $apolice->planoApolice }}</td>
                                             <td>{{ number_format($apolice->valorLimiteApolice, 2, ',', '.') }}</td>
                                             <td>{{ $apolice->status === 'N' ? 'Inativo' : 'Ativo' }}</td>
