@@ -33,7 +33,7 @@ Route::get('empresa/export/', [EmpresaController::class, 'export'])->name('empre
 use App\Http\Controllers\admin\ServicoController;
 Route::match(['get', 'post'], '/servico/create', [EmpresaController::class, 'create'])->name('servico.create');
 Route::get('servico', [ServicoController::class, 'index'])->name('servico.index');
-Route::get('servico/export/', [ServicoController::class, 'export'])->name('servico.export');
+Route::get('servico/exportServico/', [ServicoController::class, 'exportServico'])->name('servico.exportServico');
 
 
 
@@ -135,7 +135,7 @@ Route::get('/banco/{banco}/edit', [BancoController::class, 'edit'])->name('banco
 Route::match(['get', 'post'],'/banco', [BancoController::class, 'index'])->name('banco.index');
 Route::post('/banco/store', [BancoController::class, 'store'])->name('banco.store');
 
-
+Route::get('/banco/export', [BancoController::class, 'export'])->name('banco.export');
 
 use App\Http\Controllers\admin\CoberturaController;
 // Rotas para o gerenciamento de Cobertura

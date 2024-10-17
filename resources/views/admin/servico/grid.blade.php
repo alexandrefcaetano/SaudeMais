@@ -44,21 +44,23 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <div class="kt-portlet__head-wrapper">
-                        <a href="{{ route('servico.export') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ route('servico.exportServico') }}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Nova Empresa
                         </a>
 
 
-                        <a href="{{ route('servico.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
-                            <i class="la la-plus"></i>
-                            Novo Servico
-                        </a>
+{{--                        <a href="{{ route('servico.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">--}}
+{{--                            <i class="la la-plus"></i>--}}
+{{--                            Novo Servico--}}
+{{--                        </a>--}}
                     </div>
                 </div>
             </div>
             <div class="kt-portlet__body">
-
+                <div class="mb-4 d-flex justify-content-between">
+                    @livewire('exportServico')
+                </div>
                  <!--begin: Search Form -->
                  <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
                     <div class="row align-items-center">
