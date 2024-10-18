@@ -95,4 +95,54 @@ class ClienteController extends Controller
         return response()->download($filePath);
     }
 
+
+    /**
+     * Método responsável por exportar o relatório.
+     *
+     * Este método é chamado quando uma requisição HTTP é feita para exportar um relatório.
+     * Ele usa o serviço RelatorioAdministrativoService para gerar e baixar o arquivo.
+     *
+     * @param Request $request Objeto contendo os dados da requisição HTTP.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
+     */
+    public function relatorioCensusSeguro(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $request->validate(['empresa_id' => 'required']);
+
+        return Excel::download(new RelatorioCencusSeguroExport($request->empresa_id,  $request->seguradora_id ?? null, $request->apolice_id ?? null), 'relatorio.xlsx');
+    }
+
+    /**
+     * Método responsável por exportar o relatório.
+     *
+     * @param Request $request Objeto contendo os dados da requisição HTTP.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
+     */
+    public function RelatorioMaioresUtilizadores(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        // Validação dos campos de data
+        $request->validate([
+            'dataInicio' => 'required|date_format:d/m/Y',
+            'dataFim' => 'required|date_format:d/m/Y'
+        ]);
+
+        // Converte as datas de d/m/Y para Y-m-d para serem usadas no banco de dados
+        $dataInicio = \DateTime::createFromFormat('d/m/Y', $request->dataInicio)->format('Y-m-d');
+        $dataFim = \DateTime::createFromFormat('d/m/Y', $request->dataFim)->format('Y-m-d');
+
+        // Exporta o relatório usando o Excel e retorna o arquivo para download
+        return Excel::download(
+            new RelatorioMaioresUtilizadoresExport(
+                $request->empresa_id ?? null,
+                $dataInicio,
+                $dataFim
+            ),
+            'RelatorioMaioresUtilizadores.xlsx'
+        );
+    }
+
+
+
+
+
 }
