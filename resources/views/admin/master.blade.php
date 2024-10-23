@@ -202,6 +202,26 @@
                                     <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Relatorio</span></span></li>
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Apolice</span></a></li>
 
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_sensus_seguro">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Sensus Seguro</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cid_cronico">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Sensus Crônico</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Monitoremnto de Atendimento</span></a></li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Maiores Ultilizadores</span></a></li>
+
+
+
+
+
                                 </ul>
                             </div>
                         </li>
@@ -231,6 +251,7 @@
 
             <!-- end:: Aside Menu -->
         </div>
+
 
 
 
@@ -824,7 +845,7 @@
     <i class="fa fa-arrow-up"></i>
 </div>
 
-
+@include('admin.modal.relatorios')
 
 
 
@@ -912,8 +933,8 @@
 <script src="{{ asset('assets/vendors/general/waypoints/lib/jquery.waypoints.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/counterup/jquery.counterup.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/es6-promise-polyfill/promise.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/custom/components/vendors/sweetalert2/init.js')}}" type="text/javascript"></script>
+{{--<script src="{{ asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>--}}
+{{--<script src="{{ asset('assets/vendors/custom/components/vendors/sweetalert2/init.js')}}" type="text/javascript"></script>--}}
 <script src="{{ asset('assets/vendors/general/jquery.repeater/src/lib.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/jquery.repeater/src/jquery.input.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/jquery.repeater/src/repeater.js')}}" type="text/javascript"></script>
@@ -922,7 +943,7 @@
 <!--end:: Global Optional Vendors -->
 
 <!--begin::Global Theme Bundle(used by all pages) -->
-<script src="{{ asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/demo/default/base/scripts.bundle.js?v=1.01')}}" type="text/javascript"></script>
 
 <!--end::Global Theme Bundle -->
 

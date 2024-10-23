@@ -160,25 +160,5 @@ class SeguradoraController extends Controller
         return redirect()->route('seguradora.index')->with('success', 'Seguradora atualizada com sucesso.');
     }
 
-    /**
-     * Remove uma seguradora do banco de dados.
-     *
-     * @param  \App\Models\Seguradora  $seguradora
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Seguradora $seguradora)
-    {
-        // Marca a seguradora como excluída (soft delete)
-        $seguradora->update(['excluido' => 'S']);
-
-        // Redireciona para a lista de seguradoras com uma mensagem de sucesso
-        return redirect()->route('seguradora.index')->with('success', 'Seguradora excluída com sucesso.');
-    }
-
-    public function pesquisa(Request $request){
-
-        $this->index($request);
-    }
-
 
 }

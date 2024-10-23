@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers\admin;
 
+use App\Exports\RelatorioCencusCronicoExport;
+use App\Exports\RelatorioCencusSeguroExport;
+use App\Exports\RelatorioMaioresUtilizadoresExport;
 use App\Http\Controllers\Controller;
 use App\Imports\ClientesImport;
 use App\Models\Cliente;
@@ -8,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel; // Se você estiver usando Laravel Excel
 use App\Imports\BeneficiariosImport; // Defina sua classe de importação se estiver usando Laravel Excel
+
+
 
 class ClienteController extends Controller
 {
@@ -107,9 +112,13 @@ class ClienteController extends Controller
      */
     public function relatorioCensusSeguro(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $request->validate(['empresa_id' => 'required']);
+        $request->seguradora = decrypitar($request->seguradora);
 
-        return Excel::download(new RelatorioCencusSeguroExport($request->empresa_id,  $request->seguradora_id ?? null, $request->apolice_id ?? null), 'relatorio.xlsx');
+        $request->validate(['seguradora' => 'required']);
+
+        return Excel::download(new RelatorioCencusSeguroExport($request->seguradora,  $request->empresa ?? null, $request->apolice ?? null, $request->beneficiarionecessitaautorizacao ?? null), 'relatorio.xlsx');
+
+
     }
 
     /**
@@ -118,7 +127,7 @@ class ClienteController extends Controller
      * @param Request $request Objeto contendo os dados da requisição HTTP.
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
      */
-    public function RelatorioMaioresUtilizadores(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function relatorioMaioresUtilizadores(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         // Validação dos campos de data
         $request->validate([
@@ -141,7 +150,23 @@ class ClienteController extends Controller
         );
     }
 
+    /**
+     * Método responsável por exportar o relatório.
+     *
+     * Este método é chamado quando uma requisição HTTP é feita para exportar um relatório.
+     * Ele usa o serviço RelatorioAdministrativoService para gerar e baixar o arquivo.
+     *
+     * @param Request $request Objeto contendo os dados da requisição HTTP.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
+     */
+    public function relatorioCencusCronico(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $request->seguradora = decrypitar($request->seguradora);
+        $request->validate(['seguradora' => 'required']);
+        return Excel::download(new RelatorioCencusCronicoExport($request->seguradora,  $request->empresa ?? null, $request->apolice ?? null, $request->cobertura ?? null), 'relatorio_Cronico.xlsx');
 
+
+    }
 
 
 

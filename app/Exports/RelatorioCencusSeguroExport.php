@@ -2,29 +2,34 @@
 
 namespace App\Exports;
 
-use App\Models\Cliente;
+
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\DB;
+
 
 class RelatorioCencusSeguroExport implements FromCollection, WithHeadings
 {
-    private int $empresa_id; // Pode ser int ou string dependendo do tipo de dados da empresa_id
-    private int $seguradora_id; // O tipo é opcional
-    private int $apolice_id; // O tipo é opcional
+    private ?int $empresa_id;
+    private int $seguradora_id;
+    private ?string $apolice;
+    private ?string $beneficiarionecessitaautorizacao;
 
     /**
      * Construtor da classe RelatorioCencusSeguroExport.
      *
-     * @param int|string $empresa_id ID da empresa (obrigatório).
-     * @param int|string|null $seguradora_id ID da seguradora (opcional).
-     * @param int|string|null $apolice_id ID da apólice (opcional).
+     * @param int $seguradora_id ID da seguradora (obrigatório).
+     * @param int|null $empresa_id ID da empresa (opcional).
+     * @param string|null $apolice ID da apólice (opcional).
+     * @param string|null $beneficiarionecessitaautorizacao S ou N (opcional).
      */
-    public function __construct(int $empresa_id, int $seguradora_id = null, int $apolice_id = null)
+    public function __construct(int $seguradora_id, ?int $empresa_id = null, ?string $apolice = null, ?string $beneficiarionecessitaautorizacao = null)
     {
         $this->empresa_id = $empresa_id;
         $this->seguradora_id = $seguradora_id;
-        $this->apolice_id = $apolice_id;
+        $this->apolice = $apolice;
+        $this->beneficiarionecessitaautorizacao = $beneficiarionecessitaautorizacao;
     }
 
     /**
@@ -34,60 +39,71 @@ class RelatorioCencusSeguroExport implements FromCollection, WithHeadings
      */
     public function collection(): Collection
     {
-        $query = Cliente::DB("
-            SELECT seg.seguradora,
-                   emp.nomeFantasia AS empresa,
-                   apo.apolice,
-                   apo.resseguro,
-                   apo.apoliceSeguradora,
-                   CASE
-                       WHEN apo.dataFimCobertura < NOW() THEN 'BLOQUEADO'
-                       ELSE cli.situacao
-                   END AS situacao,
-                   CASE
-                       WHEN substr(cli.numeroCartao, 13, 2) <> '00' THEN substr(cli.numeroCartao, 1, 12) || '-00'
-                       ELSE cli.numeroCartao
-                   END AS cartaoTitular,
-                   cli.numeroEmpregado,
-                   CASE
-                       WHEN apo.redeInternacional = 'S' THEN 'Sim'
-                       ELSE 'Não'
-                   END AS redeInternacional,
-                   cli.bi,
-                   cli.numeroCartao,
-                   cli.nome AS beneficiario,
-                   cli.dataNascimento,
-                   EXTRACT(YEAR FROM AGE(cli.dataNascimento)) AS idade,
-                   cli.parentesco,
-                   cli.genero,
-                   cli.contato,
-                   cli.dataAtivacao,
-                   apo.dataInicioCobertura,
-                   apo.dataFimCobertura,
-                   cli.numeroSeguradora,
-                   cli.updated_at,
-                   cli.dataCancelamento,
-                   COALESCE(cli.iban, '') AS iban,
-                   COALESCE(cli.contaCorrente, '') AS contaCorrente,
-                   cli.beneficiarioNecessitaAutorizacao
-            FROM tb_cliente cli
-                     LEFT JOIN tb_seguradora seg ON cli.seguradora_id = seg.id_seguradora
-                     LEFT JOIN tb_empresa emp ON cli.empresa_id = emp.id_empresa
-                     LEFT JOIN tb_apolice apo ON cli.apolice_id = apo.id_apolice
-            WHERE cli.empresa_id = ?
-        ", [$this->empresa_id]);
+        // Inicializa a consulta
+        $query = DB::table('tb_cliente AS cli')
+            ->select([
+                'seg.seguradora',
+                'emp.nomefantasia AS empresa',
+                'apo.apolice',
+                DB::raw("CASE
+                    WHEN apo.resseguro = 'S' THEN 'Sim'
+                    ELSE 'Não'
+                END AS resseguro"),
+                'apo.apoliceseguradora',
+                DB::raw("CASE
+                    WHEN apo.datafimcobertura < NOW() THEN 'BLOQUEADO'
+                    ELSE cli.situacao
+                END AS situacao"),
+                DB::raw("CASE
+                    WHEN substr(cli.numerocartao, 13, 2) <> '00' THEN concat(substr(cli.numerocartao, 1, 12), '-00')
+                    ELSE cli.numerocartao
+                END AS cartaotitular"),
+                'cli.numeroempregado',
+                DB::raw("CASE
+                    WHEN apo.redeinternacional = 'S' THEN 'Sim'
+                    ELSE 'Não'
+                END AS redeinternacional"),
+                'cli.bi',
+                'cli.numerocartao',
+                'cli.nome AS beneficiario',
+                'cli.datanascimento',
+                DB::raw("EXTRACT(YEAR FROM AGE(cli.datanascimento)) AS idade"),
+                'cli.parentesco',
+                'cli.genero',
+                'cli.contato',
+                'cli.dataativacao',
+                'apo.datainiciocobertura',
+                'apo.datafimcobertura',
+                'cli.numeroseguradora',
+                'cli.updated_at',
+                'cli.datacancelamento',
+                DB::raw("COALESCE(cli.iban, '') AS iban"),
+                DB::raw("COALESCE(cli.contacorrente, '') AS contacorrente"),
+                DB::raw("CASE
+                    WHEN cli.beneficiarionecessitaautorizacao = 'S' THEN 'Sim'
+                    ELSE 'Não'
+                END AS beneficiarionecessitaautorizacao")
+
+            ])
+            ->leftJoin('tb_seguradora AS seg', 'cli.seguradora_id', '=', 'seg.id_seguradora')
+            ->leftJoin('tb_empresa AS emp', 'cli.empresa_id', '=', 'emp.id_empresa')
+            ->leftJoin('tb_apolice AS apo', 'cli.apolice_id', '=', 'apo.id_apolice')
+            ->where('cli.seguradora_id', $this->seguradora_id);
 
         // Adiciona filtros opcionais
-        if ($this->seguradora_id) {
-            $query->where('cli.seguradora_id', $this->seguradora_id);
+        if ($this->empresa_id) {
+            $query->where('cli.empresa_id', $this->empresa_id);
         }
 
-        if ($this->apolice_id) {
-            $query->where('cli.apolice_id', $this->apolice_id);
+        if ($this->apolice) {
+            $query->where('apo.apolice', $this->apolice);
+        }
+        if( $this->beneficiarionecessitaautorizacao){
+            $query->where('cli.beneficiarionecessitaautorizacao', $this->beneficiarionecessitaautorizacao);
         }
 
         // Retorna a coleção de dados
-        return $query->get();
+        return collect($query->get());
     }
 
     /**

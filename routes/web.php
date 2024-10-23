@@ -164,13 +164,9 @@ Route::post('/cliente/importarClientes', [ClienteController::class, 'importarCli
 Route::post('/cliente/confirmarImportacao', [ClienteController::class, 'confirmarImportacao'])->name('cliente.confirmarImportacao');
 Route::get('/cliente/download/{filename}', [ClienteController::class, 'download'])->name('cliente.download');
 
-
-
-
-
-
-
-
+Route::post('/cliente/relatorioCensusSeguro', [ClienteController::class, 'relatorioCensusSeguro'])->name('cliente.relatorioCensusSeguro');
+Route::post('/cliente/relatorioMaioresUtilizadores', [ClienteController::class, 'relatorioMaioresUtilizadores'])->name('cliente.relatorioMaioresUtilizadores');
+Route::post('/cliente/relatorioCencusCronico', [ClienteController::class, 'relatorioCencusCronico'])->name('cliente.relatorioCencusCronico');
 
 
 

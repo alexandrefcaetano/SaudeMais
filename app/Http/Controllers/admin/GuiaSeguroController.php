@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\GuiaSeguro;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RelatorioMaioresUtilizadoresExport;
 use App\Exports\RelatorioMonitoramentoAtendimentoExport;
 
 class GuiaSeguroController extends Controller

@@ -2,122 +2,125 @@
 
 namespace App\Exports;
 
-use App\Models\Cliente;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class RelatorioCencusCronicoExport implements FromCollection, WithHeadings
+class RelatorioCencusCronicoExport implements FromView, WithDrawings
 {
-    private int $empresa_id;
-    private ?int $seguradora_id; // Agora é nullable
-    private ?int $apolice_id;    // Agora é nullable
+    private ?int $empresa_id;
+    private int $seguradora_id;
+    private ?int $apolice_id;
+    private ?int $cobertura_id;
 
     /**
      * Construtor da classe RelatorioCencusCronicoExport.
      *
-     * @param int $empresa_id ID da empresa (obrigatório).
-     * @param int|null $seguradora_id ID da seguradora (opcional).
+     * @param int|null $empresa_id ID da empresa (opcional).
+     * @param int $seguradora_id ID da seguradora (obrigatório).
      * @param int|null $apolice_id ID da apólice (opcional).
+     * @param int|null $cobertura_id ID da cobertura (opcional).
      */
-    public function __construct(int $empresa_id, ?int $seguradora_id = null, ?int $apolice_id = null)
+    public function __construct(int $seguradora_id, ?int $empresa_id = null, ?int $apolice_id = null, ?int $cobertura_id = null)
     {
         $this->empresa_id = $empresa_id;
         $this->seguradora_id = $seguradora_id;
         $this->apolice_id = $apolice_id;
+        $this->cobertura_id = $cobertura_id;
     }
 
     /**
-     * Obtém a coleção de dados a serem exportados.
+     * Retorna a view que será usada para gerar o arquivo Excel.
      *
-     * @return Collection A coleção com os dados dos clientes.
+     * @return View
      */
-    public function collection(): Collection
+    public function view(): View
     {
-        $query = Cliente::DB("
-            SELECT seg.seguradora,
-                   emp.nome_fantasia AS empresa,
-                   apo.apolice,
-                   CASE
-                       WHEN apo.data_fim_cobertura < NOW() THEN 'BLOQUEADO'
-                       ELSE cli.situacao
-                   END AS situacao,
-                   CASE
-                       WHEN SUBSTRING(cli.numero_cartao FROM 13 FOR 2) <> '00' THEN
-                           CONCAT(SUBSTRING(cli.numero_cartao FROM 1 FOR 12), '-00')
-                       ELSE cli.numero_cartao
-                   END AS cartao_titular,
-                   cli.numero_empregado,
-                   CASE
-                       WHEN apo.rede_internacional = 'S' THEN 'Sim'
-                       ELSE 'Não'
-                   END AS rede_internacional,
-                   cli.numero_cartao,
-                   cli.nome AS beneficiario,
-                   cli.data_nascimento,
-                   EXTRACT(YEAR FROM AGE(cli.data_nascimento)) AS idade,
-                   cli.parentesco,
-                   cli.genero,
-                   cli.contato,
-                   cli.data_ativacao,
-                   apo.data_inicio_cobertura,
-                   apo.data_fim_cobertura,
-                   cc.dt_inclusao,
-                   usu.nome AS usuario_inc,
-                   cli.data_cancelamento,
-                   cid.cid
-            FROM cliente cli
-            JOIN seguradora seg ON cli.id_seguradora = seg.id_seguradora
-            JOIN empresa emp ON cli.id_empresa = emp.id_empresa
-            JOIN apolice apo ON cli.id_apolice = apo.id_apolice
-            LEFT JOIN clientecronico cc ON cli.id_cliente = cc.id_beneficiario
-            LEFT JOIN usuario usu ON cc.id_usuario_inc = usu.id_usuario
-            LEFT JOIN cid ON cc.id_cid = cid.id_cid
-            WHERE cli.empresa_id = ?
-            ORDER BY seg.seguradora, emp.nome_fantasia, cli.nome;
-        ", [$this->empresa_id]);
+        $query = DB::table('tb_cliente AS cli')
+            ->select([
+                'seg.seguradora',
+                'emp.nomefantasia AS empresa',
+                'apo.apolice',
+                DB::raw("
+                    CASE
+                        WHEN apo.datafimcobertura < NOW() THEN 'BLOQUEADO'
+                        ELSE cli.situacao
+                    END AS situacao
+                "),
+                DB::raw("
+                    CASE
+                        WHEN SUBSTRING(cli.numerocartao FROM 13 FOR 2) <> '00' THEN
+                            CONCAT(SUBSTRING(cli.numerocartao FROM 1 FOR 12), '-00')
+                        ELSE cli.numerocartao
+                    END AS cartaotitular
+                "),
+                'cli.numeroempregado',
+                DB::raw("
+                    CASE
+                        WHEN apo.redeinternacional = 'S' THEN 'Sim'
+                        ELSE 'Não'
+                    END AS redeinternacional
+                "),
+                'cli.numerocartao',
+                'cli.nome AS beneficiario',
+                'cli.datanascimento',
+                DB::raw("EXTRACT(YEAR FROM AGE(cli.datanascimento)) AS idade"),
+                'cli.parentesco',
+                'cli.genero',
+                'cli.contato',
+                'cli.dataativacao',
+                'apo.datainiciocobertura',
+                'apo.datafimcobertura',
+//                'cc.dtinclusao',
+//                'usu.nome AS usuario_inc',
+                'cli.datacancelamento',
+                'cid.cid'
+            ])
+            ->join('tb_seguradora AS seg', 'cli.seguradora_id', '=', 'seg.id_seguradora')
+            ->join('tb_empresa AS emp', 'cli.empresa_id', '=', 'emp.id_empresa')
+            ->join('tb_apolice AS apo', 'cli.apolice_id', '=', 'apo.id_apolice')
+            ->leftJoin('tb_clientecronico AS cc', 'cli.id_cliente', '=', 'cc.cliente_id')
+//            ->leftJoin('usuario AS usu', 'cc.id_usuario_inc', '=', 'usu.id_usuario')
+            ->leftJoin('tb_cid as cid', 'cc.cid_id', '=', 'cid.id_cid')
+            ->where('cli.seguradora_id', $this->seguradora_id);
 
         // Adiciona filtros opcionais
-        if ($this->seguradora_id) {
-            $query->where('cli.seguradora_id', $this->seguradora_id);
+        if ($this->empresa_id) {
+            $query->where('cli.id_empresa', $this->empresa_id);
         }
 
         if ($this->apolice_id) {
-            $query->where('cli.apolice_id', $this->apolice_id);
+            $query->where('cli.id_apolice', $this->apolice_id);
         }
 
-        return $query->get();
+        if ($this->cobertura_id) {
+            $query->where('cid.id_cobertura', $this->cobertura_id);
+        }
+
+        $clientes = $query->get();
+
+        // Retorna a view com os dados
+        return view('exports.relatorio_cencus_cronico', [
+            'clientes' => $clientes
+        ]);
     }
 
     /**
-     * Define os cabeçalhos da planilha Excel.
+     * Retorna a imagem que será usada no relatório.
      *
-     * @return array Um array contendo os nomes das colunas.
+     * @return array
      */
-    public function headings(): array
+    public function drawings()
     {
-        return [
-            'Seguradora',
-            'Empresa',
-            'Apólice',
-            'Situação',
-            'Cartão Titular',
-            'Número Empregado',
-            'Rede Internacional',
-            'Número do Cartão',
-            'Beneficiário',
-            'Data de Nascimento',
-            'Idade',
-            'Parentesco',
-            'Gênero',
-            'Contato',
-            'Data de Ativação',
-            'Data Início Cobertura',
-            'Data Fim Cobertura',
-            'Última Inclusão',
-            'Nome do Usuário',
-            'Data de Cancelamento',
-            'CID'
-        ];
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('Logo do relatório');
+        $drawing->setPath(public_path('assets/media/logos/imagem.png'));
+        $drawing->setHeight(80);
+        $drawing->setCoordinates('A1'); // Define a célula onde a imagem será exibida
+
+        return [$drawing];
     }
 }
