@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers\admin;
 
+
 use App\Models\GuiaSeguro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\RelatorioMaioresUtilizadoresExport;
 use App\Exports\RelatorioMonitoramentoAtendimentoExport;
+use App\Exports\RelatorioCronicoExport;
 
 class GuiaSeguroController extends Controller
 {
 
 
-    public function RelatorioMonitoramentoAtendimento($mesAno)
+    public function relatorioMonitoramentoAtendimento(Request $request)
     {
-        [$mes, $ano] = explode("/", $mesAno);
+
+        // Validação do campo de data
+        $request->validate([
+            'mesano' => 'required|date_format:m/Y'
+        ]);
+
+        [$mes, $ano] = explode("/", $request->mesano);
+
 
         // Inicializar array com dias do mês
         $array = $this->inicializarArray();
@@ -33,13 +41,13 @@ class GuiaSeguroController extends Controller
 
         // Itera por todos os tipos (geral e específicos) em uma única consulta para cada tipo
         foreach ($tipos as $tipoNome => $tipoId) {
-            $resultados = GuiaSeguro::selectRaw('DAY(dataatendimento) as dia, COUNT(id_guiaSeguro) as qtd, SUM(valortotalsaudemais) / COUNT(id_guiaSeguro) as media')
-                ->where('status', 'S')
+            $resultados = GuiaSeguro::selectRaw('EXTRACT(DAY FROM dataatendimento) as dia, COUNT(id_guiaseguro) as qtd, SUM(valortotalsaudemais) / COUNT(id_guiaseguro) as media')
+                ->where('ativo', 'S')
                 ->whereYear('dataatendimento', $ano)
                 ->whereMonth('dataatendimento', $mes)
                 ->when($tipoId, fn($query) => $query->where('tipoatendimento_id', $tipoId))
-                ->groupByRaw('DAY(dataatendimento)')
-                ->orderByRaw('DAY(dataatendimento)')
+                ->groupByRaw('EXTRACT(DAY FROM dataatendimento)')
+                ->orderByRaw('EXTRACT(DAY FROM dataatendimento)')
                 ->get();
 
             foreach ($resultados as $resultado) {
@@ -48,8 +56,11 @@ class GuiaSeguroController extends Controller
             }
         }
 
+
+        $nomeRelatorio = 'relatorio_atendimento'.date("Ymd_hms").'.xlsx';
+
         // Exportar para Excel
-        return Excel::download(new RelatorioMonitoramentoAtendimentoExport($array), 'relatorio_atendimento.xlsx');
+        return Excel::download(new RelatorioMonitoramentoAtendimentoExport($array), $nomeRelatorio);
     }
 
     private function inicializarArray()
@@ -66,33 +77,32 @@ class GuiaSeguroController extends Controller
     }
 
 
+
     /**
      * Método responsável por exportar o relatório.
      *
      * Este método é chamado quando uma requisição HTTP é feita para exportar um relatório.
-     * Ele usa o serviço RelatorioMaioresUtilizadores para gerar e baixar o arquivo.
+     * Ele usa o serviço RelatorioAdministrativoService para gerar e baixar o arquivo.
      *
      * @param Request $request Objeto contendo os dados da requisição HTTP.
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
      */
-    public function RelatorioMaioresUtilizadores(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function relatorioCronico(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
+
         // Validação dos campos de data
         $request->validate([
-            'dataInicio' => 'required|date',
-            'dataFim' => 'required|date'
+            'datainicio' => 'required|date_format:d/m/Y',
+            'datafim'    => 'required|date_format:d/m/Y'
         ]);
+        $request->seguradora = decrypitar($request->seguradora);
+        $request->validate(['seguradora' => 'required']);
 
-        // Exporta o relatório usando o Excel e retorna o arquivo para download
-        return Excel::download(
-            new RelatorioMaioresUtilizadoresExport(
-                $request->empresa_id ?? null,
-                $request->dataInicio,
-                $request->dataFim
-            ),
-            'RelatorioMaioresUtilizadores.xlsx'
-        );
+        return Excel::download(new RelatorioCronicoExport($request->datainicio,$request->datafim,$request->seguradora ?? null,  $request->empresa ?? null, $request->apolice ?? null), 'relatorio_Cronico.xlsx');
+
+
     }
 
-
 }
+
+

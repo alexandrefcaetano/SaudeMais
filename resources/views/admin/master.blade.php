@@ -215,8 +215,33 @@
                                             <span class="kt-menu__link-text">Sensus Crônico</span>
                                         </a>
                                     </li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Monitoremnto de Atendimento</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Maiores Ultilizadores</span></a></li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_maiores_utilizadores">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Maiores Utilizadores</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_MonitoramentoAtendimento">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Monitoramento de Atendimento</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cronico">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Crônico</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_ocorrencia">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Ocorrência</span>
+                                        </a>
+                                    </li>
+
 
 
 
@@ -732,34 +757,34 @@
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable Notifications:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--success kt-switch--sm">
-										<label>
-											<input type="checkbox" checked="checked" name="quick_panel_notifications_1">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--success kt-switch--sm">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_1">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable Case Tracking:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--success kt-switch--sm">
-										<label>
-											<input type="checkbox" name="quick_panel_notifications_2">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--success kt-switch--sm">
+                                <label>
+                                    <input type="checkbox" name="quick_panel_notifications_2">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-last form-group-xs row">
                         <label class="col-8 col-form-label">Support Portal:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--success kt-switch--sm">
-										<label>
-											<input type="checkbox" checked="checked" name="quick_panel_notifications_2">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--success kt-switch--sm">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_2">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
@@ -767,34 +792,34 @@
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Generate Reports:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--sm kt-switch--danger">
-										<label>
-											<input type="checkbox" checked="checked" name="quick_panel_notifications_3">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_3">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-xs row">
                         <label class="col-8 col-form-label">Enable Report Export:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--sm kt-switch--danger">
-										<label>
-											<input type="checkbox" name="quick_panel_notifications_3">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                <label>
+                                    <input type="checkbox" name="quick_panel_notifications_3">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-last form-group-xs row">
                         <label class="col-8 col-form-label">Allow Data Collection:</label>
                         <div class="col-4 kt-align-right">
-									<span class="kt-switch kt-switch--sm kt-switch--danger">
-										<label>
-											<input type="checkbox" checked="checked" name="quick_panel_notifications_4">
-											<span></span>
-										</label>
-									</span>
+                            <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" name="quick_panel_notifications_4">
+                                    <span></span>
+                                </label>
+                            </span>
                         </div>
                     </div>
                     <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
@@ -891,15 +916,18 @@
 <!--begin:: Global Optional Vendors -->
 <script src="{{ asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-datepicker/init.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/general/bootstrap-timepicker/js/bootstrap-timepicker.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-timepicker/init.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/bootstrap-daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
+
+
+
 <script src="{{ asset('assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/bootstrap-maxlength/src/bootstrap-maxlength.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-switch/init.js')}}" type="text/javascript"></script>
@@ -932,7 +960,7 @@
 <script src="{{ asset('assets/vendors/custom/vendors/jquery-idletimer/idle-timer.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/waypoints/lib/jquery.waypoints.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/counterup/jquery.counterup.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/general/es6-promise-polyfill/promise.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/general/es6-promise-polyfill/promise.js')}}" type="text/javascript"></script>
 {{--<script src="{{ asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>--}}
 {{--<script src="{{ asset('assets/vendors/custom/components/vendors/sweetalert2/init.js')}}" type="text/javascript"></script>--}}
 <script src="{{ asset('assets/vendors/general/jquery.repeater/src/lib.js')}}" type="text/javascript"></script>
@@ -954,6 +982,10 @@
 
 <!--end::Page Vendors -->
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table-locale-all.min.js"></script>
+
 <!--begin::Page Scripts(used by this page) -->
 <script src="{{ asset('assets/app/custom/general/dashboard.js')}}" type="text/javascript"></script>
 
@@ -961,21 +993,15 @@
 
 <!--begin::Global App Bundle(used by all pages) -->
 <script src="{{ asset('assets/app/bundle/app.bundle.js')}}" type="text/javascript"></script>
+<!--begin::Page Scripts(used by this page) -->
+<script src="{{ asset('assets/app/custom/general/crud/forms/widgets/select2.js')}}" type="text/javascript"></script>
 
-
-<script src="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-
-
+{{--<script src="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>--}}
 {{--<script src="{{ asset('assets/demo/default/skins/aside/bootstrap.js')}}" type="text/javascript"></script>--}}
 
 
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table-locale-all.min.js"></script>
-
+<script src="{{ asset('assets/demo/default/geral.js')}}" type="text/javascript"></script>
 
 @livewireScripts
 
@@ -986,12 +1012,14 @@
 <script>
 
 
-
     $('.table-contato').bootstrapTable({
         locale: 'pt-BR',
         // Outras configurações da tabela
     });
 
+    $(document).ready(function() {
+        $('.pequisa_sele').select2();
+    });
     toastr.options = {
         "closeButton": true,
         "debug": false,

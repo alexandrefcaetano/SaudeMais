@@ -2,13 +2,14 @@
 
 namespace App\Exports;
 
-use App\Models\Cliente;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class RelatorioMaioresUtilizadoresExport implements FromCollection, WithHeadings
+class RelatorioMaioresUtilizadoresExport implements FromView, WithDrawings, WithTitle
 {
     private ?int $empresa_id;
     private string $dataInicio;
@@ -21,7 +22,7 @@ class RelatorioMaioresUtilizadoresExport implements FromCollection, WithHeadings
      * @param string $dataInicio Data de início no formato Y-m-d (obrigatório).
      * @param string $dataFim Data de fim no formato Y-m-d (obrigatório).
      */
-    public function __construct(?int $empresa_id, string $dataInicio, string $dataFim)
+    public function __construct(?int $empresa_id = null, string $dataInicio, string $dataFim)
     {
         $this->empresa_id = $empresa_id;
         $this->dataInicio = $dataInicio;
@@ -29,11 +30,11 @@ class RelatorioMaioresUtilizadoresExport implements FromCollection, WithHeadings
     }
 
     /**
-     * Obtém a coleção de dados a serem exportados.
+     * Retorna a view que será usada para gerar o arquivo Excel.
      *
-     * @return Collection A coleção com os dados dos clientes.
+     * @return View
      */
-    public function collection(): Collection
+    public function view(): View
     {
         // Monta a query base com os parâmetros de data
         $query = DB::table('tb_guiaseguro as g')
@@ -55,24 +56,38 @@ class RelatorioMaioresUtilizadoresExport implements FromCollection, WithHeadings
         }
 
         // Retorna a coleção de dados
-        return $query->get();
+        $clientes = $query->get();
+
+        // Retorna a view com os dados
+        return view('exports.relatorio_maiores_ultilizadores', [
+            'clientes' => $clientes
+        ]);
     }
 
     /**
-     * Define os cabeçalhos da planilha Excel.
+     * Retorna a imagem que será usada no relatório.
      *
-     * @return array Um array contendo os nomes das colunas.
+     * @return array
      */
-    public function headings(): array
+    public function drawings()
     {
-        return [
-            'Número do Cartão',
-            'Beneficiário',
-            'Parentesco',
-            'Apólice',
-            'Empresa',
-            'Tipo de Atendimento',
-            'Quantidade'
-        ];
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('Logo do relatório');
+        $drawing->setPath(public_path('assets/media/logos/imagem.png'));
+        $drawing->setHeight(80);
+        $drawing->setCoordinates('A1'); // Define a célula onde a imagem será exibida
+
+        return [$drawing];
+    }
+
+    /**
+     * Define o título da worksheet.
+     *
+     * @return string O nome da aba da planilha.
+     */
+    public function title(): string
+    {
+        return 'Relatório de Maiores Ultilizadores';
     }
 }

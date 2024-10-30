@@ -170,6 +170,14 @@ Route::post('/cliente/relatorioCencusCronico', [ClienteController::class, 'relat
 
 
 
+use App\Http\Controllers\admin\GuiaSeguroController;
+Route::post('/guiaSeguro/RelatorioMonitoramentoAtendimento', [GuiaSeguroController::class, 'relatorioMonitoramentoAtendimento'])->name('guiaSeguro.relatorioMonitoramentoAtendimento');
+
+
+use App\Http\Controllers\admin\OcorrenciaController;
+Route::post('/ocorrencia/relatorioOcorrencia', [OcorrenciaController::class, 'relatorioOcorrencia'])->name('ocorrencia.relatorioOcorrencia');
+
+
 
 Route::get('/', function () {
     return view('welcome');

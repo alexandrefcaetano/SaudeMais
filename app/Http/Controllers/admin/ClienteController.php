@@ -131,13 +131,23 @@ class ClienteController extends Controller
     {
         // Validação dos campos de data
         $request->validate([
-            'dataInicio' => 'required|date_format:d/m/Y',
-            'dataFim' => 'required|date_format:d/m/Y'
+            'datainicio' => 'required|date_format:d/m/Y',
+            'datafim' => 'required|date_format:d/m/Y'
         ]);
 
         // Converte as datas de d/m/Y para Y-m-d para serem usadas no banco de dados
-        $dataInicio = \DateTime::createFromFormat('d/m/Y', $request->dataInicio)->format('Y-m-d');
-        $dataFim = \DateTime::createFromFormat('d/m/Y', $request->dataFim)->format('Y-m-d');
+        $dataInicio = \DateTime::createFromFormat('d/m/Y', $request->datainicio);
+        $dataFim = \DateTime::createFromFormat('d/m/Y', $request->datafim);
+
+        // Verifica se as datas foram convertidas corretamente
+        if (!$dataInicio || !$dataFim) {
+            // Retorna erro caso as datas não sejam válidas
+            return back()->withErrors(['As datas informadas são inválidas.']);
+        }
+
+        // Formata as datas para Y-m-d
+        $dataInicio = $dataInicio->format('Y-m-d');
+        $dataFim = $dataFim->format('Y-m-d');
 
         // Exporta o relatório usando o Excel e retorna o arquivo para download
         return Excel::download(
@@ -149,6 +159,7 @@ class ClienteController extends Controller
             'RelatorioMaioresUtilizadores.xlsx'
         );
     }
+
 
     /**
      * Método responsável por exportar o relatório.
@@ -163,7 +174,9 @@ class ClienteController extends Controller
     {
         $request->seguradora = decrypitar($request->seguradora);
         $request->validate(['seguradora' => 'required']);
-        return Excel::download(new RelatorioCencusCronicoExport($request->seguradora,  $request->empresa ?? null, $request->apolice ?? null, $request->cobertura ?? null), 'relatorio_Cronico.xlsx');
+
+        $nomeRelatorio = 'relatorio_cronico'.date("Ymd_hms").'.xlsx';
+        return Excel::download(new RelatorioCencusCronicoExport($request->seguradora,  $request->empresa ?? null, $request->apolice ?? null, $request->cobertura ?? null), $nomeRelatorio);
 
 
     }
