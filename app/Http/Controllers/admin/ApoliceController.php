@@ -12,6 +12,7 @@ use App\Http\Requests\StoreApoliceRequest;
 use App\Services\ExportacaoService;
 use App\Exports\ApoliceExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RelatorioResulmoApoliceExport;
 
 use Illuminate\Support\Facades\DB;
 
@@ -189,7 +190,6 @@ class ApoliceController extends Controller
     public function export(Request $request)
     {
 
-
         $request->validate([
             'dataInicioCobertura' => 'required',
             'dataFimCobertura' => 'required',
@@ -199,4 +199,43 @@ class ApoliceController extends Controller
     }
 
 
+
+    /**
+     * Método responsável por exportar o relatório.
+     *
+     * Este método é chamado quando uma requisição HTTP é feita para exportar um relatório.
+     * Ele usa o serviço relatorioResulmoApolice para gerar e baixar o arquivo.
+     *
+     * @param Request $request Objeto contendo os dados da requisição HTTP.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Resposta contendo o arquivo para download.
+     */
+    public function relatorioResulmoApolice(Request $request): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+
+        // Converte as datas de d/m/Y para Y-m-d para serem usadas no banco de dados
+        $dataInicio = \DateTime::createFromFormat('d/m/Y', $request->datainicio);
+        $dataFim = \DateTime::createFromFormat('d/m/Y', $request->datafim);
+
+        // Verifica se as datas foram convertidas corretamente
+        if (!$dataInicio || !$dataFim) {
+            // Retorna erro caso as datas não sejam válidas
+            return back()->withErrors(['As datas informadas são inválidas.']);
+        }
+
+        // Formata as datas para Y-m-d
+        $dataInicio = $dataInicio->format('Y-m-d');
+        $dataFim = $dataFim->format('Y-m-d');
+
+
+        // Validação dos campos de data
+        $request->validate([
+            'datainicio' => 'required|date_format:d/m/Y',
+            'datafim'    => 'required|date_format:d/m/Y'
+        ]);
+        $request->seguradora = decrypitar($request->seguradora);
+        $request->validate(['seguradora' => 'required']);
+
+        return Excel::download(new RelatorioResulmoApoliceExport($request->seguradora ,$dataInicio ?? null,$dataFim ?? null), 'relatorio_Resumo_apolice.xlsx');
+
+    }
 }

@@ -124,6 +124,8 @@ Route::post('/apolice', [ApoliceController::class, 'store'])->name('apolice.stor
 Route::get('/apolice/relatorio', [ApoliceController::class, 'relatorio'])->name('apolice.relatorio');
 Route::post('/apolice/export', [ApoliceController::class, 'export'])->name('apolice.export');
 
+Route::post('/apolice/relatorioResulmoApolice', [ApoliceController::class, 'relatorioResulmoApolice'])->name('apolice.relatorioResulmoApolice');
+
 
 
 // Rotas para o gerenciamento de Banco

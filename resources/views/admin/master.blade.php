@@ -241,6 +241,12 @@
                                             <span class="kt-menu__link-text">Ocorrência</span>
                                         </a>
                                     </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_resulto_apolice">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Resulmo Apolice</span>
+                                        </a>
+                                    </li>
 
 
 

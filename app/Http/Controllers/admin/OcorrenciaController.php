@@ -70,7 +70,6 @@ class OcorrenciaController extends Controller
 
         return Excel::download(new RelatorioOcorrenciaExport($request->empresa ,$request->datainicio ?? null,$request->datafim ?? null), 'relatorio_Ocorrencia.xlsx');
 
-
     }
 
 
