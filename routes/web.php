@@ -3,8 +3,80 @@
 use App\Models\Apolice;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\admin\DashboardController;
+use Illuminate\Support\Facades\Http;
+
+Route::get('/login', function () {
+    $authServerUrl = env('KEYCLOAK_AUTH_SERVER_URL');
+    $realm = env('KEYCLOAK_REALM');
+    $clientId = env('KEYCLOAK_CLIENT_ID');
+    $redirectUri = env('KEYCLOAK_REDIRECT_URI');
+
+    return redirect()->to($authServerUrl . 'realms/' . $realm . '/protocol/openid-connect/auth?client_id=' . $clientId . '&redirect_uri=' . urlencode($redirectUri) . '&response_type=code');
+})->name('login');
 
 
+
+Route::get('/auth/callback', function (Request $request) {
+    $code = $request->input('code');
+
+    // Verifica se existe um código de autorização
+    if (!$code) {
+        return redirect()->route('login')->withErrors('Falha ao autenticar com Keycloak');
+    }
+
+    // Substitua pelos parâmetros necessários para o token request
+    $authServerUrl = env('KEYCLOAK_AUTH_SERVER_URL');
+    $realm = env('KEYCLOAK_REALM');
+    $clientId = env('KEYCLOAK_CLIENT_ID');
+    $clientSecret = env('KEYCLOAK_CLIENT_SECRET');
+    $redirectUri = env('KEYCLOAK_REDIRECT_URI');
+
+    // Realiza uma requisição para o token com o código de autorização recebido
+    $response = Http::asForm()->post($authServerUrl . "realms/$realm/protocol/openid-connect/token", [
+        'grant_type'    => 'authorization_code',
+        'client_id'     => $clientId,
+        'client_secret' => $clientSecret,
+        'code'          => $code,
+        'redirect_uri'  => $redirectUri,
+    ]);
+
+    // Valida a resposta
+    if ($response->successful()) {
+        $data = $response->json();
+
+        // Armazene os tokens na sessão
+        session([
+            'keycloak_token' => $data['access_token'],
+            'keycloak_refresh_token' => $data['refresh_token'], // Se você precisar do refresh token
+            'keycloak_id_token' => $data['id_token'], // Se você precisar do id token
+        ]);
+
+        // Redireciona para o dashboard
+        return redirect()->to('/dashboard');
+    } else {
+        // Log do erro para diagnóstico
+        logger()->error('Erro ao obter token do Keycloak', [
+            'response' => $response->json(),
+            'status' => $response->status(),
+        ]);
+        return redirect()->route('login')->withErrors('Falha ao obter o token do Keycloak');
+    }
+})->name('auth.callback');
+
+
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
+//Route::controller(LoginController::class)->group(function () {
+//    Route::get('/login', 'index')->name('login.index');
+//    Route::post('/login', 'store')->name('login.store');
+//    Route::get('/logout', 'destroy')->name('login.destroy');
+//});
 
 
 use App\Http\Controllers\admin\UsuarioController;
@@ -184,13 +256,7 @@ Route::get('/', function () {
 });
 
 
-use App\Http\Controllers\admin\DashboardController;
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//use App\Http\Controllers\admin\DashboardController;
+//Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'index')->name('login.index');
-    Route::post('/login', 'store')->name('login.store');
-    Route::get('/logout', 'destroy')->name('login.destroy');
-});

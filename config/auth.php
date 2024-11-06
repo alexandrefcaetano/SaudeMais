@@ -99,6 +99,16 @@ return [
         ],
     ],
 
+
+
+    'guards' => [
+        'web' => [
+            'driver' => 'keycloak-web',
+            'provider' => 'users',
+        ],
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
