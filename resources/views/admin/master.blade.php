@@ -62,7 +62,7 @@
     <link href="{{ asset('assets/demo/default/skins/brand/dark.css?v=1.4')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/aside/dark.css?v=1.2')}}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.25')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.26')}}" rel="stylesheet" type="text/css" />
 {{--    <link href="{{ asset('assets/demo/default/skins/aside/bootstrap.css?v=1.0')}}" rel="stylesheet" type="text/css" />--}}
 
     <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
@@ -245,6 +245,30 @@
                                         <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_resulto_apolice">
                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                             <span class="kt-menu__link-text">Resulmo Apolice</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_prestadores">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Prestadores</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_pre_autorizacao">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Pre Autorização</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_apolice_padrao">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Apolce Padrão</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-menu__item" aria-haspopup="true">
+                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_empresa">
+                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                            <span class="kt-menu__link-text">Faturamento Empresa</span>
                                         </a>
                                     </li>
 
@@ -1017,6 +1041,9 @@
 
 <script>
 
+    $(function () {
+        $('.pesquisar_select').select2();
+    });
 
     $('.table-contato').bootstrapTable({
         locale: 'pt-BR',

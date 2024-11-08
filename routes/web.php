@@ -37,18 +37,6 @@ Route::get('servico/exportServico/', [ServicoController::class, 'exportServico']
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // Rotas para o gerenciamento de seguradoras
 use App\Http\Controllers\admin\SeguradoraController;
 Route::match(['get', 'post'], '/seguradora/create', [SeguradoraController::class, 'create'])->name('seguradora.create');
@@ -178,6 +166,20 @@ Route::post('/guiaSeguro/RelatorioMonitoramentoAtendimento', [GuiaSeguroControll
 
 use App\Http\Controllers\admin\OcorrenciaController;
 Route::post('/ocorrencia/relatorioOcorrencia', [OcorrenciaController::class, 'relatorioOcorrencia'])->name('ocorrencia.relatorioOcorrencia');
+
+use App\Http\Controllers\admin\PrestadoresCotroller;
+Route::post('/prestadores/relatorioPrestador', [PrestadoresCotroller::class, 'relatorioPrestador'])->name('prestadores.relatorioPrestador');
+
+
+use App\Http\Controllers\admin\RelatorioController;
+Route::post('/relatorio/relatorioPreAutorizacao', [RelatorioController::class, 'relatorioPreAutorizacao'])->name('relatorio.relatorioPreAutorizacao');
+Route::post('/relatorio/relatorioApolicePadrap', [RelatorioController::class, 'relatorioApolicePadrap'])->name('relatorio.relatorioApolicePadrap');
+Route::post('/relatorio/relatorioFaturamentoEmpresa', [RelatorioController::class, 'relatorioFaturamentoEmpresa'])->name('relatorio.relatorioFaturamentoEmpresa');
+
+
+
+
+
 
 
 

@@ -518,4 +518,6 @@ select.form-control:focus::-ms-value {
     background-color: #4c91cd
 }
 
-
+.select2{
+    width: 100% !important;
+}
