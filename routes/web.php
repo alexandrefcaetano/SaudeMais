@@ -175,6 +175,21 @@ use App\Http\Controllers\admin\RelatorioController;
 Route::post('/relatorio/relatorioPreAutorizacao', [RelatorioController::class, 'relatorioPreAutorizacao'])->name('relatorio.relatorioPreAutorizacao');
 Route::post('/relatorio/relatorioApolicePadrap', [RelatorioController::class, 'relatorioApolicePadrap'])->name('relatorio.relatorioApolicePadrap');
 Route::post('/relatorio/relatorioFaturamentoEmpresa', [RelatorioController::class, 'relatorioFaturamentoEmpresa'])->name('relatorio.relatorioFaturamentoEmpresa');
+Route::post('/relatorio/relatorioCapaDeLote', [RelatorioController::class, 'relatorioCapaDeLote'])->name('relatorio.relatorioCapaDeLote');
+Route::post('/relatorio/relatorioFaturamentoResumo', [RelatorioController::class, 'relatorioFaturamentoResumo'])->name('relatorio.relatorioFaturamentoResumo');
+Route::post('/relatorio/relatorioFaturamentoAnalitico', [RelatorioController::class, 'relatorioFaturamentoAnalitico'])->name('relatorio.relatorioFaturamentoAnalitico');
+Route::post('/relatorio/relatorioPrecoPestadores', [RelatorioController::class, 'relatorioPrecoPestadores'])->name('relatorio.relatorioPrecoPestadores');
+Route::post('/relatorio/relatorioPrecoPrecricao', [RelatorioController::class, 'relatorioPrecoPrecricao'])->name('relatorio.relatorioPrecoPrecricao');
+Route::post('/relatorio/relatorioReembolso', [RelatorioController::class, 'relatorioReembolso'])->name('relatorio.relatorioReembolso');
+Route::post('/relatorio/relatorioFaturamentoPrestador', [RelatorioController::class, 'relatorioFaturamentoPrestador'])->name('relatorio.relatorioFaturamentoPrestador');
+Route::post('/relatorio/relatorioFaturamentoColaborador', [RelatorioController::class, 'relatorioFaturamentoColaborador'])->name('relatorio.relatorioFaturamentoColaborador');
+Route::post('/relatorio/relatorioCheckUp', [RelatorioController::class, 'relatorioCheckUp'])->name('relatorio.relatorioCheckUp');
+Route::post('/relatorio/relatorioCheckUpFaturamento', [RelatorioController::class, 'relatorioCheckUpFaturamento'])->name('relatorio.relatorioCheckUpFaturamento');
+Route::post('/relatorio/relatorioCheckUpGuia', [RelatorioController::class, 'relatorioCheckUpGuia'])->name('relatorio.relatorioCheckUpGuia');
+
+Route::post('/relatorio/relatorioCesusLevel', [RelatorioController::class, 'relatorioCesusLevel'])->name('relatorio.relatorioCesusLevel');
+Route::post('/relatorio/relatorioComissionamentoLevel', [RelatorioController::class, 'relatorioComissionamentoLevel'])->name('relatorio.relatorioComissionamentoLevel');
+
 
 
 

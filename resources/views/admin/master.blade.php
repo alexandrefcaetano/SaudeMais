@@ -62,7 +62,7 @@
     <link href="{{ asset('assets/demo/default/skins/brand/dark.css?v=1.4')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/aside/dark.css?v=1.2')}}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.26')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/saude.css?v=1.28')}}" rel="stylesheet" type="text/css" />
 {{--    <link href="{{ asset('assets/demo/default/skins/aside/bootstrap.css?v=1.0')}}" rel="stylesheet" type="text/css" />--}}
 
     <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
@@ -196,82 +196,234 @@
                                 <i class="kt-menu__section-icon flaticon-more-v2"></i>
                             </li>
 
-                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-light"></i><span class="kt-menu__link-text">Relatorios</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                            <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+										<span class="kt-menu__link-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect id="bound" x="0" y="0" width="24" height="24" />
+													<path d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z" id="Combined-Shape" fill="#000000" />
+													<rect id="Rectangle-7-Copy-2" fill="#000000" opacity="0.3" x="2" y="4" width="5" height="16" rx="1" />
+												</g>
+											</svg>
+										</span>
+                                <span class="kt-menu__link-text">Relatorios</span>
+                                <i class="kt-menu__ver-arrow la la-angle-right"></i>
+                            </a>
                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                 <ul class="kt-menu__subnav">
-                                    <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Relatorio</span></span></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('apolice.relatorio') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Apolice</span></a></li>
+                                    <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true">
+                                        <span class="kt-menu__link"><span class="kt-menu__link-text">Relatorios</span>
+                                        </span>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">1</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_sensus_seguro">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Sensus Seguro</span>
+                                                    </a>
+                                                </li>
 
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_sensus_seguro">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Sensus Seguro</span>
-                                        </a>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cid_cronico">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Sensus Crônico</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">2</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_maiores_utilizadores">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Maiores Utilizadores</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_MonitoramentoAtendimento">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Monitoramento de Atendimento</span>
+                                                    </a>
+                                                </li>
 
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cid_cronico">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Sensus Crônico</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_maiores_utilizadores">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Maiores Utilizadores</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_MonitoramentoAtendimento">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Monitoramento de Atendimento</span>
-                                        </a>
-                                    </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cronico">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Crônico</span>
+                                                    </a>
+                                                </li>
 
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cronico">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Crônico</span>
-                                        </a>
-                                    </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_ocorrencia">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Ocorrência</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_resulto_apolice">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Resulmo Apolice</span>
+                                                    </a>
+                                                </li>
 
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_ocorrencia">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Ocorrência</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_resulto_apolice">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Resulmo Apolice</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_prestadores">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Prestadores</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_pre_autorizacao">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Pre Autorização</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_apolice_padrao">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Apolce Padrão</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-menu__item" aria-haspopup="true">
-                                        <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_empresa">
-                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                            <span class="kt-menu__link-text">Faturamento Empresa</span>
-                                        </a>
-                                    </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_pre_autorizacao">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Pre Autorização</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_apolice_padrao">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Apolce Padrão</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_empresa">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Faturamento Empresa</span>
+                                                    </a>
+                                                </li>
 
+
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">3</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_capa_lote">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Capa de Lote</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_resumo">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Faturamento Resumo</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_preco_prestadores">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Preço Prestadores</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_preco_prescricao">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Preço Prescrição</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_prestadores">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Prestadores</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_reembolso">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Reembolso</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_prestdor">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Faturamento Prestador</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_faturamento_colaborador">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Faturamento Colaborador</span>
+                                                    </a>
+                                                </li>
+
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">4</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_checckup">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Check-Up</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_checckup_guias">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Check-Up Guia</span>
+                                                    </a>
+                                                </li>
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_checckup_faturamento">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Check-Up Faturamento</span>
+                                                    </a>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">6</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_cesus_leve">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Census Leve+</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="kt-menu__item" aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link" data-toggle="modal" data-target="#rlt_comissionnamento_leve">
+                                                        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                                        <span class="kt-menu__link-text">Comissionamento Leve+</span>
+                                                    </a>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">7</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                        <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                            <ul class="kt-menu__subnav">
+
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
 
 
 
@@ -280,6 +432,40 @@
                                 </ul>
                             </div>
                         </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-open-box"></i><span class="kt-menu__link-text">Icons</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                 <ul class="kt-menu__subnav">
@@ -1043,6 +1229,17 @@
 
     $(function () {
         $('.pesquisar_select').select2();
+        $('.pesquisar_prestador').select2();
+        $('.pesquisar_prescricao').select2();
+    });
+
+    $('.date-picker').datepicker({
+        orientation: "left",
+        format: "mm/yyyy",      // Formato mês/ano
+        startView: "months",    // Mostra visão de meses primeiro
+        minViewMode: "months",  // Oculta os dias, mostra apenas meses
+        language: 'pt-BR',
+        autoclose: true
     });
 
     $('.table-contato').bootstrapTable({

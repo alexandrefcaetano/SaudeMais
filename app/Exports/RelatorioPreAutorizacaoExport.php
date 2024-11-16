@@ -22,7 +22,7 @@ class RelatorioPreAutorizacaoExport implements FromView, WithDrawings, WithTitle
     private ?int $tipo_atendimento;
     private string $numero_cartao;
 
-    public function __construct( int $seguradora, string $dataInicio, string $dataFim, int $empresa = null, int $apolice = null, int $tipo_atendimento = null, string $numero_cartao = null, )
+    public function __construct( int $seguradora, string $dataInicio, string $dataFim, int $empresa = null, int $apolice = null, int $tipo_atendimento = null, string $numero_cartao = null )
     {
         $this->seguradora = $seguradora;
         $this->dataInicio = $dataInicio;

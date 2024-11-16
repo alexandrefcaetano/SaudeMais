@@ -19,11 +19,6 @@
     opacity: 1;
 }
 
-.select2-selection__choice {
-    color: #242a4e !important;
-    background: #c8d1e3 !important;
-    border: 1px solid #9ca1af !important;
-}
 .pesquisar_select{
     border-color: #9aabff !important;
     background-color: #e1e1e5 !important;
@@ -520,4 +515,9 @@ select.form-control:focus::-ms-value {
 
 .select2{
     width: 100% !important;
+}
+.select2-selection__choice {
+    color: #242a4e !important;
+    background: #ffffff !important;
+    border: 1px solid #9ca1af !important;
 }
